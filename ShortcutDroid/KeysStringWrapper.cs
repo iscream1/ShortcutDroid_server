@@ -9,7 +9,7 @@ namespace ShortcutDroid
 {
     class KeysStringWrapper
     {
-        public string Send(string input)
+        public void Send(string input)
         {
             string output="";
             for(int i=0;i<input.Length;i++)
@@ -22,19 +22,17 @@ namespace ShortcutDroid
                     {
                         case 's': //shift
                             {
-                                output += "+" +
-                                specialConvert(input.Substring(i+1), '+');
-                            }break;
+                                output += "+" + specialConvert(input.Substring(i+1), '+');
+                            }
+                            break;
                         case 'c': //ctrl
                             {
-                                output += "^" +
-                                specialConvert(input.Substring(i+1), '^');
+                                output += "^" + specialConvert(input.Substring(i+1), '^');
                             }
                             break;
                         case 'a': //alt
                             {
-                                output += "%" +
-                                specialConvert(input.Substring(i+1), '%');
+                                output += "%" + specialConvert(input.Substring(i+1), '%');
                             }
                             break;
                         case 't': //tab
@@ -86,10 +84,12 @@ namespace ShortcutDroid
                 }
                 else
                 {
-                    output = ""+input[i];
+                    output += ""+input[i];
                 }
+               
             }
-            return output;
+            Console.WriteLine(output);
+            SendKeys.SendWait(output);
         }
 
         private string specialConvert(string input, char prev)
@@ -141,27 +141,27 @@ namespace ShortcutDroid
                             break;
                         case '[':
                             {
-                                    return "[";
+                                return "[";
                             }
                             break;
                         case ']':
                             {
-                                    return "]";
+                                return "]";
                             }
                             break;
                         case 'f':
                             {
-                                    return convertF(input.Substring(2));
+                                return convertF(input.Substring(2));
                             }
                             break;
                         default:
                             {
-                                    return "\\";
+                                return "\\";
                             }
                     }
                 }
             }
-            return ""+input[0];
+            return ""/*+input[0]*/;
         }
 
         private string convertF(string input)

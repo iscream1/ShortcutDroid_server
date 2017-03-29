@@ -81,7 +81,8 @@ namespace ShortcutDroid
                         else
                         {
                             //SendKeys.SendWait(data);
-                            Console.WriteLine("Got: {0}", wrapper.Send(data));
+                            wrapper.Send(data);
+                            //Console.WriteLine("Got: {0}", wrapper.Send(data));
                             //Console.WriteLine("Pressed: {0}", data);
                         }
                         Console.WriteLine("Read loop exited.");
