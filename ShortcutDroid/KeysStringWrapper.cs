@@ -61,6 +61,16 @@ namespace ShortcutDroid
                                 output += "{}}";
                             }
                             break;
+                        case '(':
+                            {
+                                output += "{(}";
+                            }
+                            break;
+                        case ')':
+                            {
+                                output += "{)}";
+                            }
+                            break;
                         case '[':
                             {
                                 output += "[";
@@ -78,6 +88,7 @@ namespace ShortcutDroid
                             break;
                         default:
                             {
+                                i--;
                                 output += "\\";
                             }
                             break;
@@ -146,6 +157,16 @@ namespace ShortcutDroid
                             i += 2;
                         }
                         break;
+                    case '(':
+                        {
+                            output += "{(}";
+                        }
+                        break;
+                    case ')':
+                        {
+                            output += "{)}";
+                        }
+                        break;
                     case '[':
                         {
                             output = "[";
@@ -181,55 +202,68 @@ namespace ShortcutDroid
 
         private string convertF(string input)
         {
-            if (input.Substring(0, 2) == "10")
+            if (input.Length>1&&input.Substring(0, 2) == "10")
             {
+                i += 4;
                 return "{F10}";
             }
-            else if (input.Substring(0, 2) == "11")
+            else if (input.Length > 1 && input.Substring(0, 2) == "11")
             {
+                i += 4;
                 return "{F11}";
             }
-            else if (input.Substring(0, 2) == "12")
+            else if (input.Length > 1 && input.Substring(0, 2) == "12")
             {
+                i += 4;
                 return "{F12}";
             }
             else if (input[0]=='1')
             {
+                i += 3;
                 return "{F1}";
             }
             else if (input[0] == '2')
             {
+                i += 3;
                 return "{F2}";
             }
             else if (input[0] == '3')
             {
+                i += 3;
                 return "{F3}";
             }
             else if (input[0] == '4')
             {
+                i += 3;
                 return "{F4}";
             }
             else if (input[0] == '5')
             {
+                i += 3;
                 return "{F5}";
             }
             else if (input[0] == '6')
             {
+                i += 3;
                 return "{F6}";
             }
             else if (input[0] == '7')
             {
+                i += 3;
                 return "{F7}";
             }
             else if (input[0] == '8')
             {
+                i += 3;
                 return "{F8}";
             }
             else if (input[0] == '9')
             {
+                i += 3;
                 return "{F9}";
             }
-            return "\\f" + input[0];
+            //i++;
+            return "\\f";
         }
     }
 }

@@ -9,13 +9,23 @@
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>\cS</Keystroke>
+      <Keystroke>\cs</Keystroke>
       <Label>CtrlS</Label>
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>\sS</Keystroke>
+      <Keystroke>\ss</Keystroke>
       <Label>ShiftS</Label>
+    </ShorcutList>
+   <ShorcutList>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\f5</Keystroke>
+      <Label>F5</Label>
+    </ShorcutList>
+    <ShorcutList>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\c\f8</Keystroke>
+      <Label>CtrlF8</Label>
     </ShorcutList>
   </App>
   <App>
@@ -27,7 +37,7 @@
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>\cS</Keystroke>
+      <Keystroke>\cs</Keystroke>
       <Label>CtrlS</Label>
     </ShorcutList>
   </App>
@@ -42,6 +52,11 @@
       <RandomSpeed>true</RandomSpeed>
       <Keystroke>Az alma\n \{\n nagyon\n\} finom.</Keystroke>
       <Label>ValamiSzoveg</Label>
+    </ShorcutList>
+    <ShorcutList>
+      <RandomSpeed>true</RandomSpeed>
+      <Keystroke>int main\f\(char[] argv int argc\)\n\{\n\treturn 0;\n\}</Keystroke>
+      <Label>Mainfv</Label>
     </ShorcutList>
   </App>
 </AppList>
