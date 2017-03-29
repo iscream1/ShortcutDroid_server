@@ -40,7 +40,7 @@
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>true</RandomSpeed>
-      <Keystroke>Az alma\n {\n nagyon\n} finom.</Keystroke>
+      <Keystroke>Az alma\n \{\n nagyon\n\} finom.</Keystroke>
       <Label>ValamiSzoveg</Label>
     </ShorcutList>
   </App>

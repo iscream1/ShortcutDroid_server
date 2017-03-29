@@ -9,10 +9,11 @@ namespace ShortcutDroid
 {
     class KeysStringWrapper
     {
+        int i;
         public void Send(string input)
         {
             string output="";
-            for(int i=0;i<input.Length;i++)
+            for(i=0;i<input.Length;i++)
             {
                 output = "";
                 if(input[i]=='\\')
@@ -52,12 +53,12 @@ namespace ShortcutDroid
                             break;
                         case '{':
                             {
-                                output += "{";
+                                output += "{{}";
                             }
                             break;
                         case '}':
                             {
-                                output += "}";
+                                output += "{}}";
                             }
                             break;
                         case '[':
@@ -95,70 +96,84 @@ namespace ShortcutDroid
         {
             Console.WriteLine("spec in:"+ input);
             string output="";
-            if(input[0]=='\\')
+            if (input[0] == '\\')
             {
-                if(prev=='+')
+                if (prev == '+')
                 {
-                    if (input[1] == 'c') output= "^";
-                    if (input[1] == 'a') output= "%";
+                    if (input[1] == 'c') output = "^";
+                    if (input[1] == 'a') output = "%";
                 }
                 else if (prev == '^')
                 {
-                    if (input[1] == 's') output= "+";
-                    if (input[1] == 'a') output= "%";
+                    if (input[1] == 's') output = "+";
+                    if (input[1] == 'a') output = "%";
                 }
                 else if (prev == '%')
                 {
-                    if (input[1] == 'c') output= "^";
-                    if (input[1] == 's') output= "+";
+                    if (input[1] == 'c') output = "^";
+                    if (input[1] == 's') output = "+";
                 }
                 switch (input[1])
-                    {
-                        case 't': //tab
-                            {
-                                //Console.WriteLine("wtf");
-                                output= "{TAB}";
-                            }break;
-                        case 'n': //enter
-                            {
-                                output= "~";
-                            }
-                            break;
-                        case '\\':
-                            {
-                                output= "\\\\";
-                            }
-                            break;
-                        case '{':
-                            {
-                                output= "{";
-                            }
-                            break;
-                        case '}':
-                            {
-                                output= "}";
-                            }
-                            break;
-                        case '[':
-                            {
-                                output= "[";
-                            }
-                            break;
-                        case ']':
-                            {
-                                output= "]";
-                            }
-                            break;
-                        case 'f':
-                            {
-                                output= convertF(input.Substring(2));
-                            }
-                            break;
-                        default:
-                            {
-                                output= "\\";
-                            }break;
+                {
+                    case 't': //tab
+                        {
+                            //Console.WriteLine("wtf");
+                            output = "{TAB}";
+                            i += 2;
+                        }
+                        break;
+                    case 'n': //enter
+                        {
+                            output = "~";
+                            i += 2;
+                        }
+                        break;
+                    case '\\':
+                        {
+                            output = "\\\\";
+                            i += 2;
+                        }
+                        break;
+                    case '{':
+                        {
+                            output = "{{}";
+                            i += 2;
+                        }
+                        break;
+                    case '}':
+                        {
+                            output = "{}}";
+                            i += 2;
+                        }
+                        break;
+                    case '[':
+                        {
+                            output = "[";
+                            i += 2;
+                        }
+                        break;
+                    case ']':
+                        {
+                            output = "]";
+                            i += 2;
+                        }
+                        break;
+                    case 'f':
+                        {
+                            output = convertF(input.Substring(2));
+                        }
+                        break;
+                    default:
+                        {
+                            output = "\\";
+                        }
+                        break;
                 }
+            }
+            else
+            {
+                i++;
+                output = "" + input[0];
             }
             Console.WriteLine("spec out:"+output);
             return output;
