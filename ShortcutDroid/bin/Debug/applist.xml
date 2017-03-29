@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <App>
+    <Name>App1</Name>
+    <ShorcutList>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>%{TAB}</Keystroke>
+      <Label>AltTab</Label>
+    </ShorcutList>
+    <ShorcutList>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>^S</Keystroke>
+      <Label>CtrlS</Label>
+    </ShorcutList>
+  </App>
+  <App>
+    <Name>App2</Name>
+    <ShorcutList>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>%{TAB}</Keystroke>
+      <Label>AltTab</Label>
+    </ShorcutList>
+    <ShorcutList>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>^S</Keystroke>
+      <Label>CtrlS</Label>
+    </ShorcutList>
+  </App>
+  <App>
+    <Name>Szoveg teszt</Name>
+    <ShorcutList>
+      <RandomSpeed>true</RandomSpeed>
+      <Keystroke>Az alma nagyon finõm.</Keystroke>
+      <Label>Szoveg</Label>
+    </ShorcutList>
+  </App>
+</AppList>

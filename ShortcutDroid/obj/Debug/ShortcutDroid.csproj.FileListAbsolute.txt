@@ -1,0 +1,13 @@
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\ShortcutDroid.exe.config
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\ShortcutDroid.exe
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\ShortcutDroid.pdb
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.csprojResolveAssemblyReference.cache
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.Form1.resources
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.Properties.Resources.resources
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.csproj.GenerateResource.Cache
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.exe
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.pdb
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\zxing.dll
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\zxing.pdb
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\zxing.xml
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.QRform.resources
