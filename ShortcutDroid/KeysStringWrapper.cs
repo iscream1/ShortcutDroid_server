@@ -14,7 +14,7 @@ namespace ShortcutDroid
             string output="";
             for(int i=0;i<input.Length;i++)
             {
-                //output = "";
+                output = "";
                 if(input[i]=='\\')
                 {
                     i++;
@@ -86,82 +86,82 @@ namespace ShortcutDroid
                 {
                     output += ""+input[i];
                 }
-               
+                Console.WriteLine(output);
+                SendKeys.SendWait(output);
             }
-            Console.WriteLine(output);
-            SendKeys.SendWait(output);
         }
 
         private string specialConvert(string input, char prev)
         {
+            Console.WriteLine("spec in:"+ input);
+            string output="";
             if(input[0]=='\\')
             {
                 if(prev=='+')
                 {
-                    if (input[1] == 'c') return "^";
-                    if (input[1] == 'a') return "%";
+                    if (input[1] == 'c') output= "^";
+                    if (input[1] == 'a') output= "%";
                 }
                 else if (prev == '^')
                 {
-                    if (input[1] == 's') return "+";
-                    if (input[1] == 'a') return "%";
+                    if (input[1] == 's') output= "+";
+                    if (input[1] == 'a') output= "%";
                 }
                 else if (prev == '%')
                 {
-                    if (input[1] == 'c') return "^";
-                    if (input[1] == 's') return "+";
+                    if (input[1] == 'c') output= "^";
+                    if (input[1] == 's') output= "+";
                 }
-                else 
-                {
-                    switch (input[1])
+                switch (input[1])
                     {
                         case 't': //tab
                             {
-                                return "{TAB}";
+                                //Console.WriteLine("wtf");
+                                output= "{TAB}";
                             }break;
                         case 'n': //enter
                             {
-                                return "~";
+                                output= "~";
                             }
                             break;
                         case '\\':
                             {
-                                return "\\\\";
+                                output= "\\\\";
                             }
                             break;
                         case '{':
                             {
-                                return "{";
+                                output= "{";
                             }
                             break;
                         case '}':
                             {
-                                return "}";
+                                output= "}";
                             }
                             break;
                         case '[':
                             {
-                                return "[";
+                                output= "[";
                             }
                             break;
                         case ']':
                             {
-                                return "]";
+                                output= "]";
                             }
                             break;
                         case 'f':
                             {
-                                return convertF(input.Substring(2));
+                                output= convertF(input.Substring(2));
                             }
                             break;
                         default:
                             {
-                                return "\\";
-                            }
-                    }
+                                output= "\\";
+                            }break;
                 }
             }
-            return ""/*+input[0]*/;
+            Console.WriteLine("spec out:"+output);
+            return output;
         }
 
         private string convertF(string input)
