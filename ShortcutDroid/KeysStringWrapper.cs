@@ -14,7 +14,7 @@ namespace ShortcutDroid
             string output="";
             for(int i=0;i<input.Length;i++)
             {
-                output = "";
+                //output = "";
                 if(input[i]=='\\')
                 {
                     i++;
@@ -118,35 +118,42 @@ namespace ShortcutDroid
                         case 't': //tab
                             {
                                 return "{TAB}";
-                            }
+                            }break;
                         case 'n': //enter
                             {
                                 return "~";
                             }
+                            break;
                         case '\\':
                             {
                                 return "\\\\";
                             }
+                            break;
                         case '{':
                             {
                                 return "{";
                             }
+                            break;
                         case '}':
                             {
                                 return "}";
                             }
+                            break;
                         case '[':
                             {
                                     return "[";
                             }
+                            break;
                         case ']':
                             {
                                     return "]";
                             }
+                            break;
                         case 'f':
                             {
                                     return convertF(input.Substring(2));
                             }
+                            break;
                         default:
                             {
                                     return "\\";
