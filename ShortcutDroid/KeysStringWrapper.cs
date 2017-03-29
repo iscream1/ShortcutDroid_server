@@ -11,7 +11,7 @@ namespace ShortcutDroid
     {
         public string Send(string input)
         {
-            string output;
+            string output="";
             for(int i=0;i<input.Length;i++)
             {
                 output = "";
@@ -88,8 +88,8 @@ namespace ShortcutDroid
                 {
                     output = ""+input[i];
                 }
-                return output;
             }
+            return output;
         }
 
         private string specialConvert(string input, char prev)
@@ -154,7 +154,7 @@ namespace ShortcutDroid
                     }
                 }
             }
-            else return ""+input[0];
+            return ""+input[0];
         }
 
         private string convertF(string input)

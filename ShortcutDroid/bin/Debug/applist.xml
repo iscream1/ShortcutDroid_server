@@ -4,12 +4,12 @@
     <Name>App1</Name>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>%{TAB}</Keystroke>
+      <Keystroke>\a\t</Keystroke>
       <Label>AltTab</Label>
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>^S</Keystroke>
+      <Keystroke>\cS</Keystroke>
       <Label>CtrlS</Label>
     </ShorcutList>
   </App>
@@ -17,12 +17,12 @@
     <Name>App2</Name>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>%{TAB}</Keystroke>
+      <Keystroke>\a\t</Keystroke>
       <Label>AltTab</Label>
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>^S</Keystroke>
+      <Keystroke>\cS</Keystroke>
       <Label>CtrlS</Label>
     </ShorcutList>
   </App>
@@ -30,7 +30,7 @@
     <Name>Szoveg teszt</Name>
     <ShorcutList>
       <RandomSpeed>true</RandomSpeed>
-      <Keystroke>Az alma nagyon finõm.</Keystroke>
+      <Keystroke>Az alma\n nagyon finom.</Keystroke>
       <Label>Szoveg</Label>
     </ShorcutList>
   </App>

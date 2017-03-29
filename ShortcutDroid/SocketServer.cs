@@ -22,6 +22,7 @@ namespace ShortcutDroid
             TcpListener server = null;
             setupstring = setup; //= "button1,button2,button3\n";
             TcpClient client = null;
+            KeysStringWrapper wrapper = new KeysStringWrapper();
             try
             {
                 // Set the TcpListener on port 13000.
@@ -79,8 +80,9 @@ namespace ShortcutDroid
                         }
                         else
                         {
-                            SendKeys.SendWait(data);
-                            Console.WriteLine("Pressed: {0}", data);
+                            //SendKeys.SendWait(data);
+                            Console.WriteLine("Got: {0}", wrapper.Send(data));
+                            //Console.WriteLine("Pressed: {0}", data);
                         }
                         Console.WriteLine("Read loop exited.");
                     }
