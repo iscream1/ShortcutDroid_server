@@ -73,7 +73,7 @@ namespace ShortcutDroid
                     foreach (Shortcut s in result.Apps[AppCombo.SelectedIndex].ShortcutList)
                     {
                         Console.WriteLine(s.Keystroke);
-                        setupString +=s.Label+","+s.Keystroke+",";
+                        setupString +=s.Label+"(sprtr)"+s.Keystroke+"(sprtr)";
                     }
                 }
             }
@@ -97,7 +97,7 @@ namespace ShortcutDroid
             foreach (Shortcut s in result.Apps[AppCombo.SelectedIndex].ShortcutList)
             {
                 Console.WriteLine(s.Keystroke);
-                setupString += s.Label + "," + s.Keystroke + ",";
+                setupString += s.Label + "(sprtr)" + s.Keystroke + "(sprtr)";
             }
             server.setSetup(setupString);
         }

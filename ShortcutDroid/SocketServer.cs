@@ -67,7 +67,7 @@ namespace ShortcutDroid
                             stream = client.GetStream();
                             Thread.Sleep(100);
 
-                            byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup," + setupstring+"\n");
+                            byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup(sprtr)" + setupstring+"\n");
                             stream.Write(setupmsg, 0, setupmsg.Length);
                             Console.WriteLine("Sent: {0}", setupstring);
                         }

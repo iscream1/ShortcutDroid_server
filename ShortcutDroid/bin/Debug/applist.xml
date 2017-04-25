@@ -68,11 +68,6 @@
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>false</RandomSpeed>
-      <Keystroke>\cs</Keystroke>
-      <Label>Save All</Label>
-    </ShorcutList>
-    <ShorcutList>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>\f4</Keystroke>
       <Label>Jump To Source</Label>
     </ShorcutList>

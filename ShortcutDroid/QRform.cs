@@ -21,10 +21,6 @@ namespace ShortcutDroid
         public QRform()
         {
             InitializeComponent();
-            
-            string asd = "https://www.google.hu/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=boolean+not+character&*";
-            Thread.Sleep(1000);
-            foreach (char c in asd) SendKeys.SendWait(c + "{ENTER}");
             makeQR();
         }
 
