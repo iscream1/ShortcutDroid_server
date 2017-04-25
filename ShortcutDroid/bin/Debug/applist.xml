@@ -55,7 +55,7 @@
     </ShorcutList>
     <ShorcutList>
       <RandomSpeed>true</RandomSpeed>
-      <Keystroke>int main\f\(char[] argv int argc\)\n\{\n\treturn 0;\n\}</Keystroke>
+      <Keystroke>int main\(char[] argv, int argc\)\n\{\n\treturn 0;\n\}</Keystroke>
       <Label>Mainfv</Label>
     </ShorcutList>
   </App>

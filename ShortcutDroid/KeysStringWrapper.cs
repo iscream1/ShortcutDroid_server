@@ -24,20 +24,41 @@ namespace ShortcutDroid
                     {
                         case 's': //shift
                             {
-                                output.Append("+" + specialConvert(input.Substring(i+1), '+'));
-                                i += 2;
+                                if (i != 1)
+                                {
+                                    i += 2;
+                                    output.Append(specialConvert(input.Substring(i-1), '+'));
+                                }
+                                else
+                                {
+                                    output.Append("+" + specialConvert(input.Substring(i + 1), '+'));
+                                }
                             }
                             break;
                         case 'c': //ctrl
                             {
-                                output.Append("^" + specialConvert(input.Substring(i+1), '^'));
-                                i += 2;
+                                if (i != 1)
+                                {
+                                    i += 2;
+                                    output.Append(specialConvert(input.Substring(i-1), '^'));
+                                }
+                                else
+                                {
+                                    output.Append("^" + specialConvert(input.Substring(i + 1), '^'));
+                                }
                             }
                             break;
                         case 'a': //alt
                             {
-                                output.Append("%" + specialConvert(input.Substring(i+1), '%'));
-                                i += 2;
+                                if (i != 1)
+                                {
+                                    i += 2;
+                                    output.Append(specialConvert(input.Substring(i-1), '%'));
+                                }
+                                else
+                                {
+                                    output.Append("%" + specialConvert(input.Substring(i + 1), '%'));
+                                }
                             }
                             break;
                         case 't': //tab
@@ -102,9 +123,10 @@ namespace ShortcutDroid
                 {
                     output.Append("" +input[i]);
                 }
-                Console.WriteLine(output.ToString());
-                SendKeys.SendWait(output.ToString());
             }
+
+            Console.WriteLine(output.ToString());
+            SendKeys.SendWait(output.ToString());
         }
 
         private string specialConvert(string input, char prev)
