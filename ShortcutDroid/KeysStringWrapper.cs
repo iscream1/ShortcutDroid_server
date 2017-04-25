@@ -130,8 +130,8 @@ namespace ShortcutDroid
                 Console.WriteLine(c.ToString());
                 SendKeys.SendWait(c.ToString());
             }*/
-            Console.WriteLine(output);
-            SendKeys.SendWait(output);
+            Console.WriteLine(output.ToString());
+            SendKeys.SendWait(output.ToString());
         }
 
         private string specialConvert(string input, char prev)

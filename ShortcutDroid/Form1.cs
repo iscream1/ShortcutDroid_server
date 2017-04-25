@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System.Drawing.Imaging;
-
-using ZXing;
-using ZXing.Common;
 using System.Threading;
-using System.Net;
 using System.Xml.Serialization;
 using System.IO;
+using System.Windows.Automation;
+using System.Diagnostics;
 
 namespace ShortcutDroid
 {
@@ -26,6 +17,9 @@ namespace ShortcutDroid
         public Form1()
         {
             InitializeComponent();
+
+            Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
+
             server = new SocketServer();
 
             AppList applist = new AppList();
@@ -87,6 +81,19 @@ namespace ShortcutDroid
 
             //setupString = "Alt+Tab,%{TAB},Ctrl+S,^S";
             new Thread(() => server.init(setupString)).Start();
+        }
+
+        private static void OnFocusChangedHandler(object src, AutomationFocusChangedEventArgs args)
+        {
+            AutomationElement element = src as AutomationElement;
+            if (element != null)
+            {
+                int processId = element.Current.ProcessId;
+                using (Process process = Process.GetProcessById(processId))
+                {
+                    Console.WriteLine(process.ProcessName);
+                }
+            }
         }
 
         private void qrButton_Click(object sender, EventArgs e)
