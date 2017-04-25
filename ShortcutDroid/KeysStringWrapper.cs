@@ -12,10 +12,11 @@ namespace ShortcutDroid
         int i;
         public void Send(string input)
         {
-            string output="";
+            StringBuilder output = new StringBuilder("");
+            //string output="";
             for(i=0;i<input.Length;i++)
             {
-                output = "";
+                //output = "";
                 if(input[i]=='\\')
                 {
                     i++;
@@ -23,83 +24,86 @@ namespace ShortcutDroid
                     {
                         case 's': //shift
                             {
-                                output += "+" + specialConvert(input.Substring(i+1), '+');
+                                output.Append("+" + specialConvert(input.Substring(i+1), '+'));
+                                i += 2;
                             }
                             break;
                         case 'c': //ctrl
                             {
-                                output += "^" + specialConvert(input.Substring(i+1), '^');
+                                output.Append("^" + specialConvert(input.Substring(i+1), '^'));
+                                i += 2;
                             }
                             break;
                         case 'a': //alt
                             {
-                                output += "%" + specialConvert(input.Substring(i+1), '%');
+                                output.Append("%" + specialConvert(input.Substring(i+1), '%'));
+                                i += 2;
                             }
                             break;
                         case 't': //tab
                             {
-                                output += "{TAB}";
+                                output.Append("{TAB}");
                             }
                             break;
                         case 'n': //enter
                             {
-                                output += "~";
+                                output.Append("~");
                             }
                             break;
                         case '\\':
                             {
-                                output += "\\\\";
+                                output.Append("\\\\");
                             }
                             break;
                         case '{':
                             {
-                                output += "{{}";
+                                output.Append("{{}");
                             }
                             break;
                         case '}':
                             {
-                                output += "{}}";
+                                output.Append("{}}");
                             }
                             break;
                         case '(':
                             {
-                                output += "{(}";
+                                output.Append("{(}");
                             }
                             break;
                         case ')':
                             {
-                                output += "{)}";
+                                output.Append("{)}");
                             }
                             break;
                         case '[':
                             {
-                                output += "[";
+                                output.Append("[");
                             }
                             break;
                         case ']':
                             {
-                                output += "]";
+                                output.Append("]");
                             }
                             break;
                         case 'f':
                             {
-                                output+=convertF(input.Substring(i + 1));
+                                output.Append(convertF(input.Substring(i + 1)));
                             }
                             break;
                         default:
                             {
                                 i--;
-                                output += "\\";
+                                output.Append("\\");
                             }
                             break;
                     }
                 }
                 else
                 {
-                    output += ""+input[i];
+                    output.Append("" +input[i]);
                 }
-                Console.WriteLine(output);
-                SendKeys.SendWait(output);
+                Console.WriteLine(output.ToString());
+                SendKeys.SendWait(output.ToString());
             }
         }
 
