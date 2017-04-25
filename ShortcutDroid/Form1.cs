@@ -113,6 +113,7 @@ namespace ShortcutDroid
                 else setupString += s.Label + "<sprtr>" + s.Keystroke;
             }
             server.setSetup(setupString);
+            server.setupInit();
         }
     }
 }

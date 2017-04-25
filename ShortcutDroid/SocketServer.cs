@@ -17,11 +17,12 @@ namespace ShortcutDroid
     public partial class SocketServer
     {
         string setupstring;
+        TcpClient client = null;
+        NetworkStream stream;
         public void init(string setup)
         {
             TcpListener server = null;
             setupstring = setup; //= "button1,button2,button3\n";
-            TcpClient client = null;
             KeysStringWrapper wrapper = new KeysStringWrapper();
             try
             {
@@ -46,7 +47,7 @@ namespace ShortcutDroid
                 if(client.Connected) Console.WriteLine("Connected!");
 
                 // Get a stream object for reading and writing
-                NetworkStream stream = client.GetStream();
+                stream = client.GetStream();
                 while (client.Connected)
                 {
                     data = null;
@@ -64,12 +65,7 @@ namespace ShortcutDroid
                         {
                             //client.Close();
                             //client= server.AcceptTcpClient();
-                            stream = client.GetStream();
-                            Thread.Sleep(100);
-
-                            byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup<sprtr>" + setupstring+"\n");
-                            stream.Write(setupmsg, 0, setupmsg.Length);
-                            Console.WriteLine("Sent: {0}", setupstring);
+                            setupInit();
                         }
                         else
                         {
@@ -100,6 +96,18 @@ namespace ShortcutDroid
 
             /*Console.WriteLine("\nHit enter to continue...");
             Console.Read();*/
+        }
+
+        public void setupInit()
+        {
+            //stream = client.GetStream();
+            if(client!=null&&client.Connected)
+            {
+                byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup<sprtr>" + setupstring + "\n");
+                stream.Write(setupmsg, 0, setupmsg.Length);
+                Console.WriteLine("Sent: {0}", setupstring);
+            }
+            //Thread.Sleep(100);
         }
 
         public void setSetup(string setup)
