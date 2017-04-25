@@ -12,7 +12,7 @@ namespace ShortcutDroid
         int i;
         public void Send(string input)
         {
-            StringBuilder output = new StringBuilder("");
+            KeysContainer output = new KeysContainer();
             //string output="";
             for(i=0;i<input.Length;i++)
             {
@@ -125,8 +125,13 @@ namespace ShortcutDroid
                 }
             }
 
-            Console.WriteLine(output.ToString());
-            SendKeys.SendWait(output.ToString());
+            /*foreach(Character c in output.keys)
+            {
+                Console.WriteLine(c.ToString());
+                SendKeys.SendWait(c.ToString());
+            }*/
+            Console.WriteLine(output);
+            SendKeys.SendWait(output);
         }
 
         private string specialConvert(string input, char prev)
