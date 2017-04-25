@@ -70,10 +70,13 @@ namespace ShortcutDroid
                 {
                     result = (AppList)serializer.Deserialize(reader);
                     AppCombo.DataSource = result.Apps;
-                    foreach (Shortcut s in result.Apps[AppCombo.SelectedIndex].ShortcutList)
+                    List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
+                    for (int i=0;i<list.Count;i++)
                     {
+                        Shortcut s = list[i];
                         Console.WriteLine(s.Keystroke);
-                        setupString +=s.Label+"(sprtr)"+s.Keystroke+"(sprtr)";
+                        if(i<list.Count-1) setupString +=s.Label+"<sprtr>"+s.Keystroke+"<sprtr>";
+                        else setupString += s.Label + "<sprtr>" + s.Keystroke;
                     }
                 }
             }
@@ -94,10 +97,13 @@ namespace ShortcutDroid
         private void AppCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             string setupString = "";
-            foreach (Shortcut s in result.Apps[AppCombo.SelectedIndex].ShortcutList)
+            List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
+            for (int i = 0; i < list.Count; i++)
             {
+                Shortcut s = list[i];
                 Console.WriteLine(s.Keystroke);
-                setupString += s.Label + "(sprtr)" + s.Keystroke + "(sprtr)";
+                if (i < list.Count - 1) setupString += s.Label + "<sprtr>" + s.Keystroke + "<sprtr>";
+                else setupString += s.Label + "<sprtr>" + s.Keystroke;
             }
             server.setSetup(setupString);
         }

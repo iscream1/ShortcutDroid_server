@@ -105,7 +105,7 @@ namespace ShortcutDroid
 
         private string specialConvert(string input, char prev)
         {
-            Console.WriteLine("spec in:"+ input);
+            Console.WriteLine("spec in:"+ input + "prev:"+prev);
             string output="";
             if (input[0] == '\\')
             {
@@ -124,7 +124,7 @@ namespace ShortcutDroid
                     if (input[1] == 'c') output = "^";
                     if (input[1] == 's') output = "+";
                 }
-                switch (input[1])
+                else switch (input[1])
                 {
                     case 't': //tab
                         {
