@@ -66,7 +66,7 @@ namespace ShortcutDroid
                 {
                     serializer.Serialize(writer, applist);
                 }*/
-                using (StreamReader reader = new StreamReader("applist.xml"))
+                using (StreamReader reader = new StreamReader("applist.xml", Encoding.GetEncoding("ISO-8859-9")))
                 {
                     result = (AppList)serializer.Deserialize(reader);
                     AppCombo.DataSource = result.Apps;

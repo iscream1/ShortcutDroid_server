@@ -38,17 +38,10 @@ namespace ShortcutDroid
                 Byte[] bytes = new Byte[256];
                 String data = null;
                 Console.Write("Waiting for a connection... ");
-                // Enter the listening loop.
                 while (client == null || client.Connected == false)
                 {
-                    
-
                     // Perform a blocking call to accept requests.
-                    // You could also user server.AcceptSocket() here.
                     client=server.AcceptTcpClient();
-                    
-                    // Shutdown and end connection
-                    //client.Close();
                 }
                 if(client.Connected) Console.WriteLine("Connected!");
 
@@ -105,8 +98,8 @@ namespace ShortcutDroid
             }
 
 
-            Console.WriteLine("\nHit enter to continue...");
-            Console.Read();
+            /*Console.WriteLine("\nHit enter to continue...");
+            Console.Read();*/
         }
 
         public void setSetup(string setup)
