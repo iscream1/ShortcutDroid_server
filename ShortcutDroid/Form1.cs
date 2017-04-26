@@ -23,34 +23,6 @@ namespace ShortcutDroid
             server = new SocketServer();
 
             AppList applist = new AppList();
-            var app1 = new App("App1");
-            app1.AddShortcut("AltTab", "%{TAB}");
-            app1.AddShortcut("CtrlS", "^S");
-
-            var app2 = new App("App2");
-            app2.AddShortcut("AltTab", "%{TAB}");
-            app2.AddShortcut("CtrlS", "^S");
-
-            applist.Add(app1);
-            applist.Add(app2);
-
-
-            string testData = @"<AppList>
-                        <App>
-                            <Name>App1</Name>
-                            <ShortcutList>
-                                <Keystroke>%{TAB}</Keystroke>
-                                <Keystroke>^S</Keystroke>
-			                </ShortcutList>
-                        </App>
-                        <App>
-                            <Name>App2</Name>
-                            <ShortcutList>
-                                <Keystroke>%{TAB}</Keystroke>
-                                <Keystroke>^S</Keystroke>
-                            </ShortcutList>
-                        </App>
-                    </AppList>";
 
             string setupString = "";
             try
@@ -65,12 +37,12 @@ namespace ShortcutDroid
                     result = (AppList)serializer.Deserialize(reader);
                     AppCombo.DataSource = result.Apps;
                     List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
+                    setupString = result.Apps[AppCombo.SelectedIndex].Name+ "<sprtr>";
                     for (int i=0;i<list.Count;i++)
                     {
                         Shortcut s = list[i];
                         Console.WriteLine(s.Keystroke);
-                        if(i<list.Count-1) setupString +=s.Label+"<sprtr>"+s.Keystroke+"<sprtr>";
-                        else setupString += s.Label + "<sprtr>" + s.Keystroke;
+                        setupString +=s.Label+"<sprtr>"+s.Keystroke+"<sprtr>";
                     }
                 }
             }
@@ -83,7 +55,22 @@ namespace ShortcutDroid
             new Thread(() => server.init(setupString)).Start();
         }
 
-        private static void OnFocusChangedHandler(object src, AutomationFocusChangedEventArgs args)
+        delegate void ComboHelperDelegate(App app);
+
+        private void SetSelectedApp(App app)
+        {
+            if (this.AppCombo.InvokeRequired)
+            {
+                ComboHelperDelegate d = new ComboHelperDelegate(SetSelectedApp);
+                this.Invoke(d, new object[] { app });
+            }
+            else
+            {
+                this.AppCombo.SelectedItem = app;
+            }
+        }
+
+        private void OnFocusChangedHandler(object src, AutomationFocusChangedEventArgs args)
         {
             AutomationElement element = src as AutomationElement;
             if (element != null)
@@ -91,7 +78,12 @@ namespace ShortcutDroid
                 int processId = element.Current.ProcessId;
                 using (Process process = Process.GetProcessById(processId))
                 {
-                    Console.WriteLine(process.ProcessName);
+                    //Console.WriteLine(process.ProcessName);
+                    foreach(App app in result.Apps)
+                    {
+                        if (app.ProcessName == process.ProcessName)
+                            SetSelectedApp(app);
+                    }
                 }
             }
         }
@@ -103,7 +95,7 @@ namespace ShortcutDroid
 
         private void AppCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string setupString = "";
+            string setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>"; ;
             List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
             for (int i = 0; i < list.Count; i++)
             {
