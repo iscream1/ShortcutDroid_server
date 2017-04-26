@@ -18,7 +18,7 @@ namespace ShortcutDroid
     {
         string setupstring;
         string apps;
-        public event Form1.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
+        public event ShortcutDroid.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
         TcpClient client = null;
         NetworkStream stream;
         public void init(string setup, string apps)
@@ -59,10 +59,8 @@ namespace ShortcutDroid
                     
                     int i;
 
-                    // Loop to receive all the data sent by the client.
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
-                        // Translate data bytes to a ASCII string.
                         data = System.Text.Encoding.UTF8.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
                         string[] dataArray=data.Split(new[] { "<sprtr>" }, StringSplitOptions.None);

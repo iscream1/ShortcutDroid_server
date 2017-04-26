@@ -10,12 +10,12 @@ using System.Diagnostics;
 
 namespace ShortcutDroid
 {
-    public partial class Form1: Form
+    public partial class ShortcutDroid: Form
     {
         SocketServer server;
         AppList result;
         public delegate void SpinnerSelectedChangedEventHandler(string x);
-        public Form1()
+        public ShortcutDroid()
         {
             InitializeComponent();
 

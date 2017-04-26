@@ -1,6 +1,6 @@
 ﻿namespace ShortcutDroid
 {
-    partial class Form1
+    partial class ShortcutDroid
     {
         /// <summary>
         /// Required designer variable.
