@@ -183,4 +183,13 @@
       <Label>Search</Label>
     </Shortcut>
   </App>
+  <App>
+    <Name>Open Broadcast Studio</Name>
+    <ProcessName>obs64</ProcessName>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\a\f10</Keystroke>
+      <Label>Start/Stop recording</Label>
+    </Shortcut>
+  </App>
 </AppList>
