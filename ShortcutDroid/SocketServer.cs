@@ -63,23 +63,23 @@ namespace ShortcutDroid
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         // Translate data bytes to a ASCII string.
-                        data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
+                        data = System.Text.Encoding.UTF8.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
                         string[] dataArray=data.Split(new[] { "<sprtr>" }, StringSplitOptions.None);
 
-                        if (dataArray[0].Equals("setup"))
+                        if (dataArray[0]=="setup")
                         {
                             //client.Close();
                             //client= server.AcceptTcpClient();
                             Console.WriteLine("sending setup");
                             setupInit();
                         }
-                        else if (dataArray[0].Equals("selected"))
+                        else if (dataArray[0]=="selected")
                         {
                             if (SpinnerSelectedEvent != null)
                                 SpinnerSelectedEvent(dataArray[1]);
                         }
-                        else
+                        else if (dataArray[0]=="keystroke")
                         {
                             //SendKeys.SendWait(data);
                             wrapper.Send(dataArray[1]);
@@ -114,8 +114,8 @@ namespace ShortcutDroid
         {
             if(client!=null&&client.Connected)
             {
-                byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup<sprtr>" + setupstring + "\n");
-                byte[] appsmsg = System.Text.Encoding.ASCII.GetBytes("apps" + apps + "\n");
+                byte[] setupmsg = System.Text.Encoding.UTF8.GetBytes("setup<sprtr>" + setupstring + "\n");
+                byte[] appsmsg = System.Text.Encoding.UTF8.GetBytes("apps" + apps + "\n");
 
                 stream.Write(setupmsg, 0, setupmsg.Length);
                 stream.Write(appsmsg, 0, appsmsg.Length);
@@ -127,7 +127,7 @@ namespace ShortcutDroid
         {
             if (client != null && client.Connected)
             {
-                byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup<sprtr>" + setupstring + "\n");
+                byte[] setupmsg = System.Text.Encoding.UTF8.GetBytes("setup<sprtr>" + setupstring + "\n");
 
                 stream.Write(setupmsg, 0, setupmsg.Length);
                 Console.WriteLine("Setup: {0}", setupstring);
