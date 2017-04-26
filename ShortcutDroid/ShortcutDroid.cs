@@ -182,7 +182,7 @@ namespace ShortcutDroid
             // Close the form, which closes the application.
             if (serverThread != null)
             {
-                serverThread.Interrupt();
+                serverThread.Abort();
             }
             Close();
         }
