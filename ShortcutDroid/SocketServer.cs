@@ -17,12 +17,17 @@ namespace ShortcutDroid
     public partial class SocketServer
     {
         string setupstring;
+        string apps;
+        public event Form1.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
         TcpClient client = null;
         NetworkStream stream;
-        public void init(string setup)
+        public void init(string setup, string apps)
         {
             TcpListener server = null;
-            setupstring = setup; //= "button1,button2,button3\n";
+            setupstring = setup;
+            this.apps = apps;
+            
+
             KeysStringWrapper wrapper = new KeysStringWrapper();
             try
             {
@@ -60,17 +65,24 @@ namespace ShortcutDroid
                         // Translate data bytes to a ASCII string.
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
+                        string[] dataArray=data.Split(new[] { "<sprtr>" }, StringSplitOptions.None);
 
-                        if (data.Equals("setup"))
+                        if (dataArray[0].Equals("setup"))
                         {
                             //client.Close();
                             //client= server.AcceptTcpClient();
+                            Console.WriteLine("sending setup");
                             setupInit();
+                        }
+                        else if (dataArray[0].Equals("selected"))
+                        {
+                            if (SpinnerSelectedEvent != null)
+                                SpinnerSelectedEvent(dataArray[1]);
                         }
                         else
                         {
                             //SendKeys.SendWait(data);
-                            wrapper.Send(data);
+                            wrapper.Send(dataArray[1]);
                             //Console.WriteLine("Got: {0}", wrapper.Send(data));
                             //Console.WriteLine("Pressed: {0}", data);
                         }
@@ -79,7 +91,7 @@ namespace ShortcutDroid
                     client.Close();
                     Console.WriteLine("Client loop exited.");
                     server.Stop();
-                    init(setupstring);
+                    init(setupstring, apps);
                 }
             }
             catch (SocketException e)
@@ -103,8 +115,22 @@ namespace ShortcutDroid
             if(client!=null&&client.Connected)
             {
                 byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup<sprtr>" + setupstring + "\n");
+                byte[] appsmsg = System.Text.Encoding.ASCII.GetBytes("apps" + apps + "\n");
+
                 stream.Write(setupmsg, 0, setupmsg.Length);
-                Console.WriteLine("Sent: {0}", setupstring);
+                stream.Write(appsmsg, 0, appsmsg.Length);
+                Console.WriteLine("Setup: {0}\n Apps: {1}", setupstring, apps);
+            }
+        }
+
+        public void appIndexChanged()
+        {
+            if (client != null && client.Connected)
+            {
+                byte[] setupmsg = System.Text.Encoding.ASCII.GetBytes("setup<sprtr>" + setupstring + "\n");
+
+                stream.Write(setupmsg, 0, setupmsg.Length);
+                Console.WriteLine("Setup: {0}", setupstring);
             }
         }
 

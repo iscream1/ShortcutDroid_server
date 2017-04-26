@@ -14,6 +14,7 @@ namespace ShortcutDroid
     {
         SocketServer server;
         AppList result;
+        public delegate void SpinnerSelectedChangedEventHandler(string x);
         public Form1()
         {
             InitializeComponent();
@@ -21,10 +22,13 @@ namespace ShortcutDroid
             Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
 
             server = new SocketServer();
+            server.SpinnerSelectedEvent += new SpinnerSelectedChangedEventHandler(onSpinnerChanged);
+            
 
             AppList applist = new AppList();
 
             string setupString = "";
+            StringBuilder appsSb = new StringBuilder();
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(AppList));
@@ -36,6 +40,11 @@ namespace ShortcutDroid
                 {
                     result = (AppList)serializer.Deserialize(reader);
                     AppCombo.DataSource = result.Apps;
+                    foreach (var app in result.Apps)
+                    {
+                        appsSb.Append("<sprtr>" + app.Name);
+                    }
+                    
                     List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
                     setupString = result.Apps[AppCombo.SelectedIndex].Name+ "<sprtr>";
                     for (int i=0;i<list.Count;i++)
@@ -52,11 +61,10 @@ namespace ShortcutDroid
             }
 
             //setupString = "Alt+Tab,%{TAB},Ctrl+S,^S";
-            new Thread(() => server.init(setupString)).Start();
+            new Thread(() => server.init(setupString, appsSb.ToString())).Start();
         }
 
         delegate void ComboHelperDelegate(App app);
-
         private void SetSelectedApp(App app)
         {
             if (this.AppCombo.InvokeRequired)
@@ -88,6 +96,13 @@ namespace ShortcutDroid
             }
         }
 
+        private void onSpinnerChanged(string x)
+        {
+            int idx = 0;
+            Int32.TryParse(x, out idx);
+            SetSelectedApp(result.Apps[idx]);
+        }
+
         private void qrButton_Click(object sender, EventArgs e)
         {
             new QRform().Show();
@@ -105,7 +120,7 @@ namespace ShortcutDroid
                 else setupString += s.Label + "<sprtr>" + s.Keystroke;
             }
             server.setSetup(setupString);
-            server.setupInit();
+            server.appIndexChanged();
         }
     }
 }
