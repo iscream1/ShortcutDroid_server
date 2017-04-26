@@ -95,7 +95,7 @@ namespace ShortcutDroid
 
         private void AppCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>"; ;
+            string setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
             List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
             for (int i = 0; i < list.Count; i++)
             {

@@ -47,7 +47,7 @@ namespace ShortcutDroid
         public string Name { get; set; }
         [XmlElement("ProcessName")]
         public string ProcessName { get; set; }
-        [XmlElement("Shorcut")]
+        [XmlElement("Shortcut")]
         public List<Shortcut> ShortcutList { get; set; }
         public override string ToString()
         {
