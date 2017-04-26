@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShortcutDroid
+﻿namespace ShortcutDroid
 {
     using System;
-    using System.IO;
     using System.Net;
     using System.Net.Sockets;
-    using System.Text;
-    using System.Threading;
-    using System.Windows.Forms;
 
     public partial class SocketServer
     {
@@ -20,7 +10,7 @@ namespace ShortcutDroid
         string apps;
         public event ShortcutDroid.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
         TcpClient client = null;
-        NetworkStream stream;
+        public NetworkStream stream;
         public void init(string setup, string apps)
         {
             TcpListener server = null;
@@ -31,7 +21,6 @@ namespace ShortcutDroid
             KeysStringWrapper wrapper = new KeysStringWrapper();
             try
             {
-                // Set the TcpListener on port 13000.
                 Int32 port = 115;
                 IPAddress localAddr = IPAddress.Parse("127.0.0.1");
                 
@@ -98,14 +87,8 @@ namespace ShortcutDroid
             }
             finally
             {
-                // Stop listening for new clients.
                 server.Stop();
-                //client.Close();
             }
-
-
-            /*Console.WriteLine("\nHit enter to continue...");
-            Console.Read();*/
         }
 
         public void setupInit()

@@ -7,23 +7,50 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Windows.Automation;
 using System.Diagnostics;
+using System.Drawing;
+using System.Net.Sockets;
 
 namespace ShortcutDroid
 {
-    public partial class ShortcutDroid: Form
+    public partial class ShortcutDroid : Form
     {
         SocketServer server;
         AppList result;
         public delegate void SpinnerSelectedChangedEventHandler(string x);
+
+        private ContextMenu contextMenu1;
+        private MenuItem menuItem1;
+        //private System.ComponentModel.IContainer components;
+
+        Thread serverThread=null;
+
         public ShortcutDroid()
         {
             InitializeComponent();
+
+            contextMenu1 = new System.Windows.Forms.ContextMenu();
+            menuItem1 = new System.Windows.Forms.MenuItem();
+
+            // Initialize contextMenu1
+            contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] { menuItem1 });
+
+            // Initialize menuItem1
+            this.menuItem1.Index = 0;
+            this.menuItem1.Text = "Exit";
+            this.menuItem1.Click += new EventHandler(this.menuItem1_Click);
+
+            notifyIcon1 = new NotifyIcon();
+            notifyIcon1.ContextMenu = contextMenu1;
+            notifyIcon1.Icon = this.Icon;
+            notifyIcon1.MouseDoubleClick += notifyIcon1_MouseDoubleClick;
+            WindowState = FormWindowState.Minimized;
+            ShowInTaskbar = false;
 
             Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
 
             server = new SocketServer();
             server.SpinnerSelectedEvent += new SpinnerSelectedChangedEventHandler(onSpinnerChanged);
-            
+
 
             AppList applist = new AppList();
 
@@ -44,24 +71,25 @@ namespace ShortcutDroid
                     {
                         appsSb.Append("<sprtr>" + app.Name);
                     }
-                    
+
                     List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
-                    setupString = result.Apps[AppCombo.SelectedIndex].Name+ "<sprtr>";
-                    for (int i=0;i<list.Count;i++)
+                    setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
+                    for (int i = 0; i < list.Count; i++)
                     {
                         Shortcut s = list[i];
                         Console.WriteLine(s.Keystroke);
-                        setupString +=s.Label+"<sprtr>"+s.Keystroke+"<sprtr>";
+                        setupString += s.Label + "<sprtr>" + s.Keystroke + "<sprtr>";
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.InnerException);
             }
 
             //setupString = "Alt+Tab,%{TAB},Ctrl+S,^S";
-            new Thread(() => server.init(setupString, appsSb.ToString())).Start();
+            serverThread=new Thread(() => server.init(setupString, appsSb.ToString()));
+            serverThread.Start();
         }
 
         delegate void ComboHelperDelegate(App app);
@@ -87,7 +115,7 @@ namespace ShortcutDroid
                 using (Process process = Process.GetProcessById(processId))
                 {
                     //Console.WriteLine(process.ProcessName);
-                    foreach(App app in result.Apps)
+                    foreach (App app in result.Apps)
                     {
                         if (app.ProcessName == process.ProcessName)
                             SetSelectedApp(app);
@@ -121,6 +149,42 @@ namespace ShortcutDroid
             }
             server.setSetup(setupString);
             server.appIndexChanged();
+        }
+
+        //  The NotifyIcon object
+        private NotifyIcon notifyIcon1;//((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void ShortcutDroid_Resize(object sender, EventArgs e)
+        {
+            notifyIcon1.BalloonTipTitle = "ShortcutDroid";
+            notifyIcon1.BalloonTipText = "ShortcutDroid is running on the app tray.";
+
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(500);
+                this.Hide();
+            }
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                notifyIcon1.Visible = false;
+            }
+        }
+
+        private void menuItem1_Click(object Sender, EventArgs e)
+        {
+            // Close the form, which closes the application.
+            if (serverThread != null)
+            {
+                serverThread.Interrupt();
+            }
+            Close();
         }
     }
 }

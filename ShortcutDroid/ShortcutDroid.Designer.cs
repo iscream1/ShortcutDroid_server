@@ -52,15 +52,16 @@
             this.AppCombo.TabIndex = 1;
             this.AppCombo.SelectedIndexChanged += new System.EventHandler(this.AppCombo_SelectedIndexChanged);
             // 
-            // Form1
+            // ShortcutDroid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 316);
             this.Controls.Add(this.AppCombo);
             this.Controls.Add(this.qrButton);
-            this.Name = "Form1";
+            this.Name = "ShortcutDroid";
             this.Text = "Form1";
+            this.Resize += new System.EventHandler(this.ShortcutDroid_Resize);
             this.ResumeLayout(false);
 
         }
