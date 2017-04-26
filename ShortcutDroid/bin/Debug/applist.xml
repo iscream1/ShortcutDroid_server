@@ -3,184 +3,184 @@
   <App>
     <Name>Alkalmazás1</Name>
     <ProcessName></ProcessName>
-    <ShorcutList>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\a\t</Keystroke>
       <Label>AltTab</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cs</Keystroke>
       <Label>CtrlS</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\ss</Keystroke>
       <Label>ShiftS</Label>
-    </ShorcutList>
-   <ShorcutList>
+    </Shortcut>
+   <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\f5</Keystroke>
       <Label>F5</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\f8</Keystroke>
       <Label>CtrlF8</Label>
-    </ShorcutList>
+    </Shortcut>
   </App>
   <App>
     <Name>App2</Name>
     <ProcessName></ProcessName>
-    <ShorcutList>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\a\t</Keystroke>
       <Label>AltTab</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cs</Keystroke>
       <Label>CtrlS</Label>
-    </ShorcutList>
+    </Shortcut>
   </App>
   <App>
     <Name>Szöveg teszt</Name>
     <ProcessName></ProcessName>
-    <ShorcutList>
+    <Shortcut>
       <RandomSpeed>true</RandomSpeed>
       <Keystroke>Az alma\n nagyon finom.õúûáéöüóí</Keystroke>
       <Label>AlmaSzöveg</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>true</RandomSpeed>
       <Keystroke>Az alma\n \{\n nagyon\n\} finom.</Keystroke>
       <Label>ValamiSzoveg</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>true</RandomSpeed>
       <Keystroke>int main\(char[] argv, int argc\)\n\{\n\treturn 0;\n\}</Keystroke>
       <Label>Mainfv</Label>
-    </ShorcutList>
+    </Shortcut>
   </App>
   <App>
     <Name>Android Studio</Name>
     <ProcessName>studio64</ProcessName>
-    <ShorcutList>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cs</Keystroke>
       <Label>Save All</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\f4</Keystroke>
       <Label>Jump To Source</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cz</Keystroke>
       <Label>Undo</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\sz</Keystroke>
       <Label>Redo</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\f9</Keystroke>
       <Label>Build</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\s\f10</Keystroke>
       <Label>Build And Run</Label>
-    </ShorcutList>
+    </Shortcut>
   </App>
   <App>
     <Name>Visual Studio</Name>
     <ProcessName>devenv</ProcessName>
-    <ShorcutList>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\ss</Keystroke>
       <Label>Save All</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cz</Keystroke>
       <Label>Undo</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\sz</Keystroke>
       <Label>Redo</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\f5</Keystroke>
       <Label>Start</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\f5</Keystroke>
       <Label>Start without debug</Label>
-    </ShorcutList>
+    </Shortcut>
   </App>
   <App>
     <Name>Notepad</Name>
     <ProcessName>notepad</ProcessName>
-    <ShorcutList>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cs</Keystroke>
       <Label>Save All</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cz</Keystroke>
       <Label>Undo</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\sz</Keystroke>
       <Label>Redo</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cf</Keystroke>
       <Label>Search</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\f3</Keystroke>
       <Label>Search next</Label>
-    </ShorcutList>
+    </Shortcut>
   </App>
   <App>
     <Name>Chrome</Name>
     <ProcessName>chrome</ProcessName>
-    <ShorcutList>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\ct</Keystroke>
       <Label>New tab</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\t</Keystroke>
       <Label>Next tab</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cw</Keystroke>
       <Label>Close tab</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\c\st</Keystroke>
       <Label>Open closed tab</Label>
-    </ShorcutList>
-    <ShorcutList>
+    </Shortcut>
+    <Shortcut>
       <RandomSpeed>false</RandomSpeed>
       <Keystroke>\cf</Keystroke>
       <Label>Search</Label>
-    </ShorcutList>
+    </Shortcut>
   </App>
 </AppList>
