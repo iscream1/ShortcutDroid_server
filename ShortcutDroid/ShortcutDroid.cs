@@ -110,7 +110,7 @@ namespace ShortcutDroid
         private void OnFocusChangedHandler(object src, AutomationFocusChangedEventArgs args)
         {
             AutomationElement element = src as AutomationElement;
-            if (element != null)
+            if (element != null && element.Current.ProcessId!=0)
             {
                 int processId = element.Current.ProcessId;
                 using (Process process = Process.GetProcessById(processId))
