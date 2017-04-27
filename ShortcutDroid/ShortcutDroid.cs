@@ -9,6 +9,7 @@ using System.Windows.Automation;
 using System.Diagnostics;
 using System.Drawing;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 
 namespace ShortcutDroid
 {
@@ -124,11 +125,19 @@ namespace ShortcutDroid
             }
         }
 
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
         private void onSpinnerChanged(string x)
         {
             int idx = 0;
             Int32.TryParse(x, out idx);
             SetSelectedApp(result.Apps[idx]);
+            Process[] processes=Process.GetProcessesByName(result.Apps[idx].ProcessName);
+            if (processes.Length != 0)
+            {
+                int i = 0;
+                while (i<processes.Length&&!SetForegroundWindow(processes[i++].MainWindowHandle));
+            }
         }
 
         private void qrButton_Click(object sender, EventArgs e)

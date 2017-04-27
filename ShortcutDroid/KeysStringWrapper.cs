@@ -71,6 +71,26 @@ namespace ShortcutDroid
                                 output.Append("~");
                             }
                             break;
+                        case 'l': //left
+                            {
+                                output.Append("{LEFT}");
+                            }
+                            break;
+                        case 'r': //right
+                            {
+                                output.Append("{RIGHT}");
+                            }
+                            break;
+                        case 'u': //up
+                            {
+                                output.Append("{UP}");
+                            }
+                            break;
+                        case 'd': //down
+                            {
+                                output.Append("{DOWN}");
+                            }
+                            break;
                         case '\\':
                             {
                                 output.Append("\\\\");
@@ -168,6 +188,26 @@ namespace ShortcutDroid
                         {
                             output = "~";
                             i += 2;
+                        }
+                        break;
+                    case 'l': //left
+                        {
+                            output=("{LEFT}");
+                        }
+                        break;
+                    case 'r': //right
+                        {
+                            output=("{RIGHT}");
+                        }
+                        break;
+                    case 'u': //up
+                        {
+                            output=("{UP}");
+                        }
+                        break;
+                    case 'd': //down
+                        {
+                            output=("{DOWN}");
                         }
                         break;
                     case '\\':

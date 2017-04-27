@@ -184,6 +184,50 @@
     </Shortcut>
   </App>
   <App>
+    <Name>VLC Media Player</Name>
+    <ProcessName>vlc</ProcessName>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke> </Keystroke>
+      <Label>Play/Pause</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>f</Keystroke>
+      <Label>Full screen</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\c\u</Keystroke>
+      <Label>Volume+</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\c\d</Keystroke>
+      <Label>Volume-</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\s\l</Keystroke>
+      <Label>3sec-</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\s\r</Keystroke>
+      <Label>3sec+</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\c\r</Keystroke>
+      <Label>1min+</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\c\l</Keystroke>
+      <Label>1min-</Label>
+    </Shortcut>
+  </App>
+  <App>
     <Name>Open Broadcast Studio</Name>
     <ProcessName>obs64</ProcessName>
     <Shortcut>
