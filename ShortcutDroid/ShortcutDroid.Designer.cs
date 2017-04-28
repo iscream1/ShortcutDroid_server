@@ -30,6 +30,7 @@
         {
             this.qrButton = new System.Windows.Forms.Button();
             this.AppCombo = new System.Windows.Forms.ComboBox();
+            this.EditButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // qrButton
@@ -52,11 +53,22 @@
             this.AppCombo.TabIndex = 1;
             this.AppCombo.SelectedIndexChanged += new System.EventHandler(this.AppCombo_SelectedIndexChanged);
             // 
+            // EditButton
+            // 
+            this.EditButton.Location = new System.Drawing.Point(12, 69);
+            this.EditButton.Name = "EditButton";
+            this.EditButton.Size = new System.Drawing.Size(132, 23);
+            this.EditButton.TabIndex = 2;
+            this.EditButton.Text = "Open shortcut editor";
+            this.EditButton.UseVisualStyleBackColor = true;
+            this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+            // 
             // ShortcutDroid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 316);
+            this.Controls.Add(this.EditButton);
             this.Controls.Add(this.AppCombo);
             this.Controls.Add(this.qrButton);
             this.Name = "ShortcutDroid";
@@ -70,6 +82,7 @@
 
         private System.Windows.Forms.Button qrButton;
         private System.Windows.Forms.ComboBox AppCombo;
+        private System.Windows.Forms.Button EditButton;
     }
 }
 

@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace ShortcutDroid
 {
@@ -73,7 +74,7 @@ namespace ShortcutDroid
                         appsSb.Append("<sprtr>" + app.Name);
                     }
 
-                    List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
+                    BindingList<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
                     setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
                     for (int i = 0; i < list.Count; i++)
                     {
@@ -129,14 +130,17 @@ namespace ShortcutDroid
         static extern bool SetForegroundWindow(IntPtr hWnd);
         private void onSpinnerChanged(string x)
         {
-            int idx = 0;
-            Int32.TryParse(x, out idx);
-            SetSelectedApp(result.Apps[idx]);
-            Process[] processes=Process.GetProcessesByName(result.Apps[idx].ProcessName);
-            if (processes.Length != 0)
+            if(result.Apps.Count!=0)
             {
-                int i = 0;
-                while (i<processes.Length&&!SetForegroundWindow(processes[i++].MainWindowHandle));
+                int idx = 0;
+                Int32.TryParse(x, out idx);
+                SetSelectedApp(result.Apps[idx]);
+                Process[] processes = Process.GetProcessesByName(result.Apps[idx].ProcessName);
+                if (processes.Length != 0)
+                {
+                    int i = 0;
+                    while (i < processes.Length && !SetForegroundWindow(processes[i++].MainWindowHandle)) ;
+                }
             }
         }
 
@@ -147,17 +151,20 @@ namespace ShortcutDroid
 
         private void AppCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
-            List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
-            for (int i = 0; i < list.Count; i++)
+            if (result.Apps.Count != 0)
             {
-                Shortcut s = list[i];
-                Console.WriteLine(s.Keystroke);
-                if (i < list.Count - 1) setupString += s.Label + "<sprtr>" + s.Keystroke + "<sprtr>";
-                else setupString += s.Label + "<sprtr>" + s.Keystroke;
+                string setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
+                BindingList<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Shortcut s = list[i];
+                    Console.WriteLine(s.Keystroke);
+                    if (i < list.Count - 1) setupString += s.Label + "<sprtr>" + s.Keystroke + "<sprtr>";
+                    else setupString += s.Label + "<sprtr>" + s.Keystroke;
+                }
+                server.setSetup(setupString);
+                server.appIndexChanged();
             }
-            server.setSetup(setupString);
-            server.appIndexChanged();
         }
 
         //  The NotifyIcon object
@@ -194,6 +201,18 @@ namespace ShortcutDroid
                 serverThread.Abort();
             }
             Close();
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            if(result!=null)
+            {
+                new ShortcutEditor(result).Show();
+            }
+            else
+            {
+                MessageBox.Show("Cannot openn editor, application list is empty.");
+            }
         }
     }
 }

@@ -9,11 +9,12 @@
         string setupstring;
         string apps;
         public event ShortcutDroid.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
-        TcpClient client = null;
+        public TcpClient client = null;
+        public TcpListener server = null;
         public NetworkStream stream;
         public void init(string setup, string apps)
         {
-            TcpListener server = null;
+            server = null;
             setupstring = setup;
             this.apps = apps;
             

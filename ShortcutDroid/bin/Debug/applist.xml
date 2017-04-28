@@ -228,6 +228,20 @@
     </Shortcut>
   </App>
   <App>
+    <Name>Adobe reader</Name>
+    <ProcessName>AcroRd32</ProcessName>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\l</Keystroke>
+      <Label>Previous slide</Label>
+    </Shortcut>
+    <Shortcut>
+      <RandomSpeed>false</RandomSpeed>
+      <Keystroke>\r</Keystroke>
+      <Label>Next slide</Label>
+    </Shortcut>
+  </App>
+  <App>
     <Name>Open Broadcast Studio</Name>
     <ProcessName>obs64</ProcessName>
     <Shortcut>

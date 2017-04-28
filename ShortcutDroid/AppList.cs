@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace ShortcutDroid
     {
         public AppList()
         {
-            Apps = new List<App>();
+            Apps = new BindingList<App>();
         }
 
         public void Add(App app)
@@ -21,20 +22,29 @@ namespace ShortcutDroid
         }
 
         [XmlElement("App")]
-        public List<App> Apps { get; set; }
+        public BindingList<App> Apps { get; set; }
     }
 
-    public class App
+    public class App : INotifyPropertyChanged
     {
         public App(string name)
         {
-            ShortcutList = new List<Shortcut>();
+            ShortcutList = new BindingList<Shortcut>();
             Name = name;
         }
         public App()
         {
-            ShortcutList = new List<Shortcut>();
+            ShortcutList = new BindingList<Shortcut>();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public void AddShortcut(string label, string keystroke)
         {
             ShortcutList.Add(new Shortcut(label, keystroke, false));
@@ -43,12 +53,22 @@ namespace ShortcutDroid
         {
             ShortcutList.Add(new Shortcut(label, keystroke, randomspeed));
         }
+        private string name;
         [XmlElement("Name")]
-        public string Name { get; set; }
+        public string Name { get
+            {
+                return name;
+            }
+            set
+            {
+                OnPropertyChanged(nameof(Name));
+                name = value;
+            }
+        }
         [XmlElement("ProcessName")]
         public string ProcessName { get; set; }
         [XmlElement("Shortcut")]
-        public List<Shortcut> ShortcutList { get; set; }
+        public BindingList<Shortcut> ShortcutList { get; set; }
         public override string ToString()
         {
             return Name;
@@ -70,5 +90,9 @@ namespace ShortcutDroid
         public string Label { get; set; }
         [XmlElement("RandomSpeed")]
         public bool RandomSpeed = false;
+        public override string ToString()
+        {
+            return Label;
+        }
     }
 }
