@@ -195,11 +195,12 @@ namespace ShortcutDroid
 
         private void menuItem1_Click(object Sender, EventArgs e)
         {
-            // Close the form, which closes the application.
             if (serverThread != null)
             {
-                serverThread.Abort();
+                server.terminate();
+                serverThread.Join();
             }
+            notifyIcon1.Visible = false;
             Close();
         }
 

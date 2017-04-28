@@ -11,7 +11,8 @@
         public event ShortcutDroid.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
         public TcpClient client = null;
         public TcpListener server = null;
-        public NetworkStream stream;
+        public NetworkStream stream = null;
+        public bool terminated=false;
         public void init(string setup, string apps)
         {
             server = null;
@@ -79,12 +80,16 @@
                     client.Close();
                     Console.WriteLine("Client loop exited.");
                     server.Stop();
-                    init(setupstring, apps);
+                    if(!terminated) init(setupstring, apps);
                 }
             }
             catch (SocketException e)
             {
-                Console.WriteLine("SocketException: {0}", e);
+                Console.WriteLine("Socket Terminated:\n"+e);
+            }
+            catch(System.IO.IOException e)
+            {
+                Console.WriteLine("Stream closed:\n" + e);
             }
             finally
             {
@@ -119,6 +124,13 @@
         public void setSetup(string setup)
         {
             setupstring = setup;
+        }
+
+        public void terminate()
+        {
+            terminated = true;
+            if (server != null) server.Stop();
+            if (stream != null) stream.Close();
         }
     }
 }
