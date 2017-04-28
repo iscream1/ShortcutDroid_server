@@ -22,7 +22,7 @@ namespace ShortcutDroid
 
         private ContextMenu contextMenu1;
         private MenuItem menuItem1;
-        //private System.ComponentModel.IContainer components;
+        private NotifyIcon notifyIcon1;
 
         Thread serverThread=null;
 
@@ -30,20 +30,18 @@ namespace ShortcutDroid
         {
             InitializeComponent();
 
-            contextMenu1 = new System.Windows.Forms.ContextMenu();
-            menuItem1 = new System.Windows.Forms.MenuItem();
+            contextMenu1 = new ContextMenu();
+            menuItem1 = new MenuItem();
 
-            // Initialize contextMenu1
-            contextMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] { menuItem1 });
+            contextMenu1.MenuItems.AddRange(new MenuItem[] { menuItem1 });
 
-            // Initialize menuItem1
-            this.menuItem1.Index = 0;
-            this.menuItem1.Text = "Exit";
-            this.menuItem1.Click += new EventHandler(this.menuItem1_Click);
+            menuItem1.Index = 0;
+            menuItem1.Text = "Exit";
+            menuItem1.Click += new EventHandler(menuItem1_Click);
 
             notifyIcon1 = new NotifyIcon();
             notifyIcon1.ContextMenu = contextMenu1;
-            notifyIcon1.Icon = this.Icon;
+            notifyIcon1.Icon = Icon;
             notifyIcon1.MouseDoubleClick += notifyIcon1_MouseDoubleClick;
             WindowState = FormWindowState.Minimized;
             ShowInTaskbar = false;
@@ -61,10 +59,6 @@ namespace ShortcutDroid
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(AppList));
-                /*using (TextWriter writer = new StreamWriter("applist.xml"))
-                {
-                    serializer.Serialize(writer, applist);
-                }*/
                 using (StreamReader reader = new StreamReader("applist.xml", Encoding.GetEncoding("ISO-8859-9")))
                 {
                     result = (AppList)serializer.Deserialize(reader);
@@ -89,7 +83,6 @@ namespace ShortcutDroid
                 Console.WriteLine(e.InnerException);
             }
 
-            //setupString = "Alt+Tab,%{TAB},Ctrl+S,^S";
             serverThread=new Thread(() => server.init(setupString, appsSb.ToString()));
             serverThread.Start();
         }
@@ -116,7 +109,7 @@ namespace ShortcutDroid
                 int processId = element.Current.ProcessId;
                 using (Process process = Process.GetProcessById(processId))
                 {
-                    //Console.WriteLine(process.ProcessName);
+                    Console.WriteLine(process.ProcessName);
                     foreach (App app in result.Apps)
                     {
                         if (app.ProcessName == process.ProcessName)
@@ -167,9 +160,6 @@ namespace ShortcutDroid
             }
         }
 
-        //  The NotifyIcon object
-        private NotifyIcon notifyIcon1;//((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
@@ -213,6 +203,39 @@ namespace ShortcutDroid
             else
             {
                 MessageBox.Show("Cannot openn editor, application list is empty.");
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown)
+            {
+                if (serverThread != null)
+                {
+                    server.terminate();
+                    serverThread.Join();
+                }
+                notifyIcon1.Visible = false;
+                return;
+            }
+
+            switch (MessageBox.Show(this, "Are you sure you want to terminate server?", "Close server", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.No:
+                    e.Cancel = true;
+                    break;
+                default:
+                    {
+                        if (serverThread != null)
+                        {
+                            server.terminate();
+                            serverThread.Join();
+                        }
+                        notifyIcon1.Visible = false;
+                    }
+                    break;
             }
         }
     }
