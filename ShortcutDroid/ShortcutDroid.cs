@@ -68,7 +68,7 @@ namespace ShortcutDroid
                         appsSb.Append("<sprtr>" + app.Name);
                     }
 
-                    BindingList<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
+                    List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
                     setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
                     for (int i = 0; i < list.Count; i++)
                     {
@@ -147,7 +147,7 @@ namespace ShortcutDroid
             if (result.Apps.Count != 0)
             {
                 string setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
-                BindingList<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
+                List<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
                 for (int i = 0; i < list.Count; i++)
                 {
                     Shortcut s = list[i];

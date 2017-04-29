@@ -13,7 +13,7 @@ namespace ShortcutDroid
     {
         public AppList()
         {
-            Apps = new BindingList<App>();
+            Apps = new List<App>();
         }
 
         public void Add(App app)
@@ -22,27 +22,19 @@ namespace ShortcutDroid
         }
 
         [XmlElement("App")]
-        public BindingList<App> Apps { get; set; }
+        public List<App> Apps { get; set; }
     }
 
-    public class App : INotifyPropertyChanged
+    public class App
     {
         public App(string name)
         {
-            ShortcutList = new BindingList<Shortcut>();
+            ShortcutList = new List<Shortcut>();
             Name = name;
         }
         public App()
         {
-            ShortcutList = new BindingList<Shortcut>();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            ShortcutList = new List<Shortcut>();
         }
 
         public void AddShortcut(string label, string keystroke)
@@ -53,22 +45,12 @@ namespace ShortcutDroid
         {
             ShortcutList.Add(new Shortcut(label, keystroke, randomspeed));
         }
-        private string name;
         [XmlElement("Name")]
-        public string Name { get
-            {
-                return name;
-            }
-            set
-            {
-                OnPropertyChanged(nameof(Name));
-                name = value;
-            }
-        }
+        public string Name { get; set; }
         [XmlElement("ProcessName")]
         public string ProcessName { get; set; }
         [XmlElement("Shortcut")]
-        public BindingList<Shortcut> ShortcutList { get; set; }
+        public List<Shortcut> ShortcutList { get; set; }
         public override string ToString()
         {
             return Name;
