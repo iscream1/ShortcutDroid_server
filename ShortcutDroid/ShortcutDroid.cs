@@ -21,7 +21,7 @@ namespace ShortcutDroid
         public delegate void SpinnerSelectedChangedEventHandler(string x);
 
         private ContextMenu contextMenu1;
-        private MenuItem menuItem1;
+        private MenuItem ExitMenuItem;
         private NotifyIcon notifyIcon1;
 
         Thread serverThread=null;
@@ -31,13 +31,13 @@ namespace ShortcutDroid
             InitializeComponent();
 
             contextMenu1 = new ContextMenu();
-            menuItem1 = new MenuItem();
+            ExitMenuItem = new MenuItem();
 
-            contextMenu1.MenuItems.AddRange(new MenuItem[] { menuItem1 });
+            contextMenu1.MenuItems.AddRange(new MenuItem[] { ExitMenuItem });
 
-            menuItem1.Index = 0;
-            menuItem1.Text = "Exit";
-            menuItem1.Click += new EventHandler(menuItem1_Click);
+            ExitMenuItem.Index = 0;
+            ExitMenuItem.Text = "Exit";
+            ExitMenuItem.Click += new EventHandler(ExitMenuItem_Click);
 
             notifyIcon1 = new NotifyIcon();
             notifyIcon1.ContextMenu = contextMenu1;
@@ -46,6 +46,11 @@ namespace ShortcutDroid
             WindowState = FormWindowState.Minimized;
             ShowInTaskbar = false;
 
+            init();
+        }
+
+        public void init()
+        {
             Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
 
             server = new SocketServer();
@@ -183,7 +188,7 @@ namespace ShortcutDroid
             }
         }
 
-        private void menuItem1_Click(object Sender, EventArgs e)
+        private void ExitMenuItem_Click(object Sender, EventArgs e)
         {
             if (serverThread != null)
             {
