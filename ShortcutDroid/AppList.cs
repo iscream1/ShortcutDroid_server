@@ -13,7 +13,7 @@ namespace ShortcutDroid
     {
         public AppList()
         {
-            Apps = new List<App>();
+            Apps = new BindingList<App>();
         }
 
         public void Add(App app)
@@ -22,19 +22,19 @@ namespace ShortcutDroid
         }
 
         [XmlElement("App")]
-        public List<App> Apps { get; set; }
+        public BindingList<App> Apps { get; set; }
     }
 
     public class App
     {
         public App(string name)
         {
-            ShortcutList = new List<Shortcut>();
+            ShortcutList = new BindingList<Shortcut>();
             Name = name;
         }
         public App()
         {
-            ShortcutList = new List<Shortcut>();
+            ShortcutList = new BindingList<Shortcut>();
         }
 
         public void AddShortcut(string label, string keystroke)
@@ -50,7 +50,7 @@ namespace ShortcutDroid
         [XmlElement("ProcessName")]
         public string ProcessName { get; set; }
         [XmlElement("Shortcut")]
-        public List<Shortcut> ShortcutList { get; set; }
+        public BindingList<Shortcut> ShortcutList { get; set; }
         public override string ToString()
         {
             return Name;
