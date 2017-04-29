@@ -87,7 +87,7 @@ namespace ShortcutDroid
         [XmlElement("Keystroke")]
         public string Keystroke { get; set; }
         [XmlElement("Label")]
-        public string Label { get; set; }
+        public string Label { get;set; }
         [XmlElement("RandomSpeed")]
         public bool RandomSpeed = false;
         public override string ToString()

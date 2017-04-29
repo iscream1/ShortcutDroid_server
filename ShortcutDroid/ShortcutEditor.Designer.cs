@@ -39,10 +39,17 @@
             this.AddAppButton = new System.Windows.Forms.Button();
             this.RemoveAppButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
+            this.AppEditBox = new System.Windows.Forms.TextBox();
+            this.AppEditLabel = new System.Windows.Forms.Label();
+            this.ShortcutEditLabel = new System.Windows.Forms.Label();
+            this.ShortcutEditBox = new System.Windows.Forms.TextBox();
+            this.RemoveShortcutButton = new System.Windows.Forms.Button();
+            this.AddShortcutButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AppCombo
             // 
+            this.AppCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AppCombo.FormattingEnabled = true;
             this.AppCombo.Location = new System.Drawing.Point(113, 12);
             this.AppCombo.Name = "AppCombo";
@@ -52,10 +59,11 @@
             // 
             // ShortcutCombo
             // 
+            this.ShortcutCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ShortcutCombo.FormattingEnabled = true;
-            this.ShortcutCombo.Location = new System.Drawing.Point(113, 66);
+            this.ShortcutCombo.Location = new System.Drawing.Point(113, 91);
             this.ShortcutCombo.Name = "ShortcutCombo";
-            this.ShortcutCombo.Size = new System.Drawing.Size(727, 21);
+            this.ShortcutCombo.Size = new System.Drawing.Size(565, 21);
             this.ShortcutCombo.TabIndex = 1;
             this.ShortcutCombo.SelectedIndexChanged += new System.EventHandler(this.ShortcutCombo_SelectedIndexChanged);
             // 
@@ -71,7 +79,7 @@
             // ShortcutLabel
             // 
             this.ShortcutLabel.AutoSize = true;
-            this.ShortcutLabel.Location = new System.Drawing.Point(13, 69);
+            this.ShortcutLabel.Location = new System.Drawing.Point(13, 94);
             this.ShortcutLabel.Name = "ShortcutLabel";
             this.ShortcutLabel.Size = new System.Drawing.Size(79, 13);
             this.ShortcutLabel.TabIndex = 3;
@@ -79,16 +87,16 @@
             // 
             // KeystrokeBox
             // 
-            this.KeystrokeBox.Location = new System.Drawing.Point(16, 109);
+            this.KeystrokeBox.Location = new System.Drawing.Point(16, 159);
             this.KeystrokeBox.Multiline = true;
             this.KeystrokeBox.Name = "KeystrokeBox";
-            this.KeystrokeBox.Size = new System.Drawing.Size(824, 347);
+            this.KeystrokeBox.Size = new System.Drawing.Size(824, 297);
             this.KeystrokeBox.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 42);
+            this.label1.Location = new System.Drawing.Point(13, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 6;
@@ -96,7 +104,7 @@
             // 
             // ProcessBox
             // 
-            this.ProcessBox.Location = new System.Drawing.Point(113, 39);
+            this.ProcessBox.Location = new System.Drawing.Point(113, 65);
             this.ProcessBox.Name = "ProcessBox";
             this.ProcessBox.Size = new System.Drawing.Size(727, 20);
             this.ProcessBox.TabIndex = 7;
@@ -104,7 +112,7 @@
             // KeystrokeLabel
             // 
             this.KeystrokeLabel.AutoSize = true;
-            this.KeystrokeLabel.Location = new System.Drawing.Point(13, 93);
+            this.KeystrokeLabel.Location = new System.Drawing.Point(13, 143);
             this.KeystrokeLabel.Name = "KeystrokeLabel";
             this.KeystrokeLabel.Size = new System.Drawing.Size(57, 13);
             this.KeystrokeLabel.TabIndex = 8;
@@ -141,11 +149,70 @@
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
+            // AppEditBox
+            // 
+            this.AppEditBox.Location = new System.Drawing.Point(113, 40);
+            this.AppEditBox.Name = "AppEditBox";
+            this.AppEditBox.Size = new System.Drawing.Size(727, 20);
+            this.AppEditBox.TabIndex = 12;
+            // 
+            // AppEditLabel
+            // 
+            this.AppEditLabel.AutoSize = true;
+            this.AppEditLabel.Location = new System.Drawing.Point(13, 43);
+            this.AppEditLabel.Name = "AppEditLabel";
+            this.AppEditLabel.Size = new System.Drawing.Size(78, 13);
+            this.AppEditLabel.TabIndex = 13;
+            this.AppEditLabel.Text = "Edit app name:";
+            // 
+            // ShortcutEditLabel
+            // 
+            this.ShortcutEditLabel.AutoSize = true;
+            this.ShortcutEditLabel.Location = new System.Drawing.Point(13, 121);
+            this.ShortcutEditLabel.Name = "ShortcutEditLabel";
+            this.ShortcutEditLabel.Size = new System.Drawing.Size(98, 13);
+            this.ShortcutEditLabel.TabIndex = 15;
+            this.ShortcutEditLabel.Text = "Edit shortcut name:";
+            // 
+            // ShortcutEditBox
+            // 
+            this.ShortcutEditBox.Location = new System.Drawing.Point(113, 118);
+            this.ShortcutEditBox.Name = "ShortcutEditBox";
+            this.ShortcutEditBox.Size = new System.Drawing.Size(727, 20);
+            this.ShortcutEditBox.TabIndex = 14;
+            // 
+            // RemoveShortcutButton
+            // 
+            this.RemoveShortcutButton.Location = new System.Drawing.Point(764, 89);
+            this.RemoveShortcutButton.Name = "RemoveShortcutButton";
+            this.RemoveShortcutButton.Size = new System.Drawing.Size(75, 23);
+            this.RemoveShortcutButton.TabIndex = 17;
+            this.RemoveShortcutButton.TabStop = false;
+            this.RemoveShortcutButton.Text = "Remove";
+            this.RemoveShortcutButton.UseVisualStyleBackColor = true;
+            this.RemoveShortcutButton.Click += new System.EventHandler(this.RemoveShortcutButton_Click);
+            // 
+            // AddShortcutButton
+            // 
+            this.AddShortcutButton.Location = new System.Drawing.Point(683, 89);
+            this.AddShortcutButton.Name = "AddShortcutButton";
+            this.AddShortcutButton.Size = new System.Drawing.Size(75, 23);
+            this.AddShortcutButton.TabIndex = 16;
+            this.AddShortcutButton.Text = "Add new";
+            this.AddShortcutButton.UseVisualStyleBackColor = true;
+            this.AddShortcutButton.Click += new System.EventHandler(this.AddShortcutButton_Click);
+            // 
             // ShortcutEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(852, 493);
+            this.Controls.Add(this.RemoveShortcutButton);
+            this.Controls.Add(this.AddShortcutButton);
+            this.Controls.Add(this.ShortcutEditLabel);
+            this.Controls.Add(this.ShortcutEditBox);
+            this.Controls.Add(this.AppEditLabel);
+            this.Controls.Add(this.AppEditBox);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.RemoveAppButton);
             this.Controls.Add(this.AddAppButton);
@@ -177,5 +244,11 @@
         private System.Windows.Forms.Button AddAppButton;
         private System.Windows.Forms.Button RemoveAppButton;
         private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.TextBox AppEditBox;
+        private System.Windows.Forms.Label AppEditLabel;
+        private System.Windows.Forms.Label ShortcutEditLabel;
+        private System.Windows.Forms.TextBox ShortcutEditBox;
+        private System.Windows.Forms.Button RemoveShortcutButton;
+        private System.Windows.Forms.Button AddShortcutButton;
     }
 }
