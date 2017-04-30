@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace ShortcutDroid
 {
@@ -113,6 +115,35 @@ namespace ShortcutDroid
             KeystrokeBox.Text = "";
             if (appList.Apps.Count!=0&&appList.Apps[appIdx].ShortcutList.Count != 0)
                 appList.Apps[appIdx].ShortcutList.RemoveAt(shortcIdx);
+        }
+
+        private void SaveFileButton_Click(object sender, EventArgs e)
+        {
+            switch (MessageBox.Show(this, "Save changes to disk? THIS CANNOT BE UNDONE", "Save to disk", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.No:
+                    break;
+                default:
+                    {
+                        try
+                        {
+                            XmlSerializer serializer = new XmlSerializer(typeof(AppList));
+                            using (TextWriter writer = new StreamWriter("applist.xml", true, Encoding.UTF8)) 
+                            {
+                                serializer.Serialize(writer, appList);
+                            }
+                            MessageBox.Show("Please restart server in order for the changes to take effect. This can be done in the main window.", "Restart");
+                            Close();
+                        }
+                        catch (Exception x)
+                        {
+                            MessageBox.Show("Could not serialize", "ERROR");
+                            Console.WriteLine(x.InnerException);
+                        }
+                    }
+                    break;
+            }
+            
         }
     }
 }

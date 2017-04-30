@@ -11,3 +11,4 @@ D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\zxing.pdb
 D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\bin\Debug\zxing.xml
 D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.QRform.resources
 D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.ShortcutDroid.resources
+D:\Dropbox\bme\6\onlab\ShortcutDroid\ShortcutDroid\obj\Debug\ShortcutDroid.ShortcutEditor.resources

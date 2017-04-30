@@ -214,7 +214,10 @@ namespace ShortcutDroid
             switch (MessageBox.Show(this, "Are you sure you want to terminate server?", "Close server", MessageBoxButtons.YesNo))
             {
                 case DialogResult.No:
-                    e.Cancel = true;
+                    {
+                        e.Cancel = true;
+                    }
+                    
                     break;
                 default:
                     {

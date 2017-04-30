@@ -45,6 +45,7 @@
             this.ShortcutEditBox = new System.Windows.Forms.TextBox();
             this.RemoveShortcutButton = new System.Windows.Forms.Button();
             this.AddShortcutButton = new System.Windows.Forms.Button();
+            this.SaveFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AppCombo
@@ -202,11 +203,22 @@
             this.AddShortcutButton.UseVisualStyleBackColor = true;
             this.AddShortcutButton.Click += new System.EventHandler(this.AddShortcutButton_Click);
             // 
+            // SaveFileButton
+            // 
+            this.SaveFileButton.Location = new System.Drawing.Point(16, 462);
+            this.SaveFileButton.Name = "SaveFileButton";
+            this.SaveFileButton.Size = new System.Drawing.Size(165, 23);
+            this.SaveFileButton.TabIndex = 18;
+            this.SaveFileButton.Text = "Save changes to disk";
+            this.SaveFileButton.UseVisualStyleBackColor = true;
+            this.SaveFileButton.Click += new System.EventHandler(this.SaveFileButton_Click);
+            // 
             // ShortcutEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(852, 493);
+            this.Controls.Add(this.SaveFileButton);
             this.Controls.Add(this.RemoveShortcutButton);
             this.Controls.Add(this.AddShortcutButton);
             this.Controls.Add(this.ShortcutEditLabel);
@@ -250,5 +262,6 @@
         private System.Windows.Forms.TextBox ShortcutEditBox;
         private System.Windows.Forms.Button RemoveShortcutButton;
         private System.Windows.Forms.Button AddShortcutButton;
+        private System.Windows.Forms.Button SaveFileButton;
     }
 }
