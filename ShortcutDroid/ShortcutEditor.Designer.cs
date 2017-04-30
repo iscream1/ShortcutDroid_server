@@ -142,11 +142,11 @@
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(684, 463);
+            this.SaveButton.Location = new System.Drawing.Point(683, 463);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(155, 23);
+            this.SaveButton.Size = new System.Drawing.Size(156, 23);
             this.SaveButton.TabIndex = 11;
-            this.SaveButton.Text = "Save current";
+            this.SaveButton.Text = "Save current selection";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
@@ -209,7 +209,7 @@
             this.SaveFileButton.Name = "SaveFileButton";
             this.SaveFileButton.Size = new System.Drawing.Size(165, 23);
             this.SaveFileButton.TabIndex = 18;
-            this.SaveFileButton.Text = "Save changes to disk";
+            this.SaveFileButton.Text = "Save all changes to disk";
             this.SaveFileButton.UseVisualStyleBackColor = true;
             this.SaveFileButton.Click += new System.EventHandler(this.SaveFileButton_Click);
             // 

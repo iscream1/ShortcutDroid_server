@@ -22,7 +22,7 @@ namespace ShortcutDroid
         public delegate void AppRemovedEventHandler();
 
         private ContextMenu contextMenu1;
-        private MenuItem ExitMenuItem;
+        //private MenuItem ExitMenuItem;
         private NotifyIcon notifyIcon1;
 
         Thread serverThread=null;
@@ -32,13 +32,23 @@ namespace ShortcutDroid
             InitializeComponent();
 
             contextMenu1 = new ContextMenu();
-            ExitMenuItem = new MenuItem();
+            MenuItem ExitMenuItem = new MenuItem();
+            MenuItem RestartMenuItem = new MenuItem();
+            MenuItem ShowMenuItem = new MenuItem();
 
-            contextMenu1.MenuItems.AddRange(new MenuItem[] { ExitMenuItem });
+            contextMenu1.MenuItems.AddRange(new MenuItem[] { ExitMenuItem, RestartMenuItem, ShowMenuItem });
 
-            ExitMenuItem.Index = 0;
+            ExitMenuItem.Index = 2;
             ExitMenuItem.Text = "Exit";
             ExitMenuItem.Click += new EventHandler(ExitMenuItem_Click);
+
+            RestartMenuItem.Index = 1;
+            RestartMenuItem.Text = "Restart server";
+            RestartMenuItem.Click += new EventHandler(RestartMenuItem_Click);
+
+            ShowMenuItem.Index = 0;
+            ShowMenuItem.Text = "Show ShortcutDroid";
+            ShowMenuItem.Click += new EventHandler(ShowMenuItem_Click);
 
             notifyIcon1 = new NotifyIcon();
             notifyIcon1.ContextMenu = contextMenu1;
@@ -47,13 +57,13 @@ namespace ShortcutDroid
             WindowState = FormWindowState.Minimized;
             ShowInTaskbar = false;
 
+            Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
+
             init();
         }
 
         public void init()
         {
-            Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
-
             server = new SocketServer();
             server.SpinnerSelectedEvent += new SpinnerSelectedChangedEventHandler(onSpinnerChanged);
 
@@ -75,7 +85,7 @@ namespace ShortcutDroid
 
 
             AppCombo.DataSource = result.Apps;
-            serverThread =new Thread(() => server.init(result));
+            serverThread = new Thread(() => server.init(result));
             serverThread.Start();
         }
 
@@ -182,6 +192,19 @@ namespace ShortcutDroid
             Close();
         }
 
+        private void ShowMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Show();
+            WindowState = FormWindowState.Normal;
+            notifyIcon1.Visible = false;
+        }
+
+        private void RestartMenuItem_Click(object sender, EventArgs e)
+        {
+            restart();
+        }
+
         private void EditButton_Click(object sender, EventArgs e)
         {
             if(result!=null)
@@ -236,6 +259,31 @@ namespace ShortcutDroid
         {
             Console.WriteLine("DataSourceChanged");
             server.sendApps();
+        }
+
+        private void RestartButton_Click(object sender, EventArgs e)
+        {
+            restart();
+        }
+
+        private void restart()
+        {
+            switch (MessageBox.Show(this, "Are you sure you want to restart server?", "Restart server", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.No:
+                    break;
+                default:
+                    {
+                        if (serverThread != null)
+                        {
+                            server.terminate();
+                            serverThread.Join();
+                            serverThread = null;
+                        }
+                        init();
+                    }
+                    break;
+            }
         }
     }
 }

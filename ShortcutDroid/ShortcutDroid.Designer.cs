@@ -31,15 +31,17 @@
             this.qrButton = new System.Windows.Forms.Button();
             this.AppCombo = new System.Windows.Forms.ComboBox();
             this.EditButton = new System.Windows.Forms.Button();
+            this.RestartButton = new System.Windows.Forms.Button();
+            this.AppLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // qrButton
             // 
-            this.qrButton.Location = new System.Drawing.Point(12, 12);
+            this.qrButton.Location = new System.Drawing.Point(268, 281);
             this.qrButton.Name = "qrButton";
-            this.qrButton.Size = new System.Drawing.Size(75, 23);
+            this.qrButton.Size = new System.Drawing.Size(102, 23);
             this.qrButton.TabIndex = 0;
-            this.qrButton.Text = "Show QR";
+            this.qrButton.Text = "IP address QR";
             this.qrButton.UseVisualStyleBackColor = true;
             this.qrButton.Click += new System.EventHandler(this.qrButton_Click);
             // 
@@ -47,7 +49,7 @@
             // 
             this.AppCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AppCombo.FormattingEnabled = true;
-            this.AppCombo.Location = new System.Drawing.Point(12, 42);
+            this.AppCombo.Location = new System.Drawing.Point(12, 33);
             this.AppCombo.Name = "AppCombo";
             this.AppCombo.Size = new System.Drawing.Size(358, 21);
             this.AppCombo.TabIndex = 1;
@@ -56,19 +58,40 @@
             // 
             // EditButton
             // 
-            this.EditButton.Location = new System.Drawing.Point(12, 69);
+            this.EditButton.Location = new System.Drawing.Point(12, 60);
             this.EditButton.Name = "EditButton";
-            this.EditButton.Size = new System.Drawing.Size(132, 23);
+            this.EditButton.Size = new System.Drawing.Size(170, 23);
             this.EditButton.TabIndex = 2;
             this.EditButton.Text = "Open shortcut editor";
             this.EditButton.UseVisualStyleBackColor = true;
             this.EditButton.Click += new System.EventHandler(this.EditButton_Click);
+            // 
+            // RestartButton
+            // 
+            this.RestartButton.Location = new System.Drawing.Point(12, 281);
+            this.RestartButton.Name = "RestartButton";
+            this.RestartButton.Size = new System.Drawing.Size(182, 23);
+            this.RestartButton.TabIndex = 3;
+            this.RestartButton.Text = "Restart server";
+            this.RestartButton.UseVisualStyleBackColor = true;
+            this.RestartButton.Click += new System.EventHandler(this.RestartButton_Click);
+            // 
+            // AppLabel
+            // 
+            this.AppLabel.AutoSize = true;
+            this.AppLabel.Location = new System.Drawing.Point(13, 14);
+            this.AppLabel.Name = "AppLabel";
+            this.AppLabel.Size = new System.Drawing.Size(106, 13);
+            this.AppLabel.TabIndex = 4;
+            this.AppLabel.Text = "Selected application:";
             // 
             // ShortcutDroid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(382, 316);
+            this.Controls.Add(this.AppLabel);
+            this.Controls.Add(this.RestartButton);
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.AppCombo);
             this.Controls.Add(this.qrButton);
@@ -76,6 +99,7 @@
             this.Text = "Form1";
             this.Resize += new System.EventHandler(this.ShortcutDroid_Resize);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -84,6 +108,8 @@
         private System.Windows.Forms.Button qrButton;
         private System.Windows.Forms.ComboBox AppCombo;
         private System.Windows.Forms.Button EditButton;
+        private System.Windows.Forms.Button RestartButton;
+        private System.Windows.Forms.Label AppLabel;
     }
 }
 
