@@ -104,6 +104,9 @@
     <EmbeddedResource Include="QRform.resx">
       <DependentUpon>QRform.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ShortcutDroid.resx">
+      <DependentUpon>ShortcutDroid.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

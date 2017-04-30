@@ -19,6 +19,7 @@ namespace ShortcutDroid
         SocketServer server;
         AppList result;
         public delegate void SpinnerSelectedChangedEventHandler(string x);
+        public delegate void AppRemovedEventHandler();
 
         private ContextMenu contextMenu1;
         private MenuItem ExitMenuItem;
@@ -56,10 +57,8 @@ namespace ShortcutDroid
             server = new SocketServer();
             server.SpinnerSelectedEvent += new SpinnerSelectedChangedEventHandler(onSpinnerChanged);
 
-
             AppList applist = new AppList();
-
-            string setupString = "";
+            
             StringBuilder appsSb = new StringBuilder();
             try
             {
@@ -67,20 +66,6 @@ namespace ShortcutDroid
                 using (StreamReader reader = new StreamReader("applist.xml", Encoding.GetEncoding("ISO-8859-9")))
                 {
                     result = (AppList)serializer.Deserialize(reader);
-                    AppCombo.DataSource = result.Apps;
-                    foreach (var app in result.Apps)
-                    {
-                        appsSb.Append("<sprtr>" + app.Name);
-                    }
-
-                    BindingList<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
-                    setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
-                    for (int i = 0; i < list.Count; i++)
-                    {
-                        Shortcut s = list[i];
-                        Console.WriteLine(s.Keystroke);
-                        setupString += s.Label + "<sprtr>" + s.Keystroke + "<sprtr>";
-                    }
                 }
             }
             catch (Exception e)
@@ -88,7 +73,9 @@ namespace ShortcutDroid
                 Console.WriteLine(e.InnerException);
             }
 
-            serverThread=new Thread(() => server.init(setupString, appsSb.ToString()));
+
+            AppCombo.DataSource = result.Apps;
+            serverThread =new Thread(() => server.init(result));
             serverThread.Start();
         }
 
@@ -142,6 +129,11 @@ namespace ShortcutDroid
             }
         }
 
+        private void onAppRemoved()
+        {
+            server.sendApps();
+        }
+
         private void qrButton_Click(object sender, EventArgs e)
         {
             new QRform().Show();
@@ -151,16 +143,7 @@ namespace ShortcutDroid
         {
             if (result.Apps.Count != 0)
             {
-                string setupString = result.Apps[AppCombo.SelectedIndex].Name + "<sprtr>";
-                BindingList<Shortcut> list = result.Apps[AppCombo.SelectedIndex].ShortcutList;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    Shortcut s = list[i];
-                    Console.WriteLine(s.Keystroke);
-                    if (i < list.Count - 1) setupString += s.Label + "<sprtr>" + s.Keystroke + "<sprtr>";
-                    else setupString += s.Label + "<sprtr>" + s.Keystroke;
-                }
-                server.setSetup(setupString);
+                if(serverThread!=null) server.setSetup(AppCombo.SelectedIndex);
                 server.appIndexChanged();
             }
         }
@@ -203,7 +186,9 @@ namespace ShortcutDroid
         {
             if(result!=null)
             {
-                new ShortcutEditor(result).Show();
+                ShortcutEditor she = new ShortcutEditor(result);
+                she.AppRemovedEvent += new AppRemovedEventHandler(onAppRemoved);
+                she.Show();
             }
             else
             {
@@ -242,6 +227,12 @@ namespace ShortcutDroid
                     }
                     break;
             }
+        }
+
+        private void AppCombo_DataSourceChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("DataSourceChanged");
+            server.sendApps();
         }
     }
 }

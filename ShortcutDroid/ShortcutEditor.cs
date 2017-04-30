@@ -13,6 +13,7 @@ namespace ShortcutDroid
     public partial class ShortcutEditor : Form
     {
         AppList appList;
+        public event ShortcutDroid.AppRemovedEventHandler AppRemovedEvent;
 
         public ShortcutEditor(AppList appList)
         {
@@ -69,6 +70,7 @@ namespace ShortcutDroid
             ShortcutCombo.DataSource = null;
             ShortcutEditBox.Text = "";
             KeystrokeBox.Text = "";
+            if (AppRemovedEvent != null) AppRemovedEvent();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

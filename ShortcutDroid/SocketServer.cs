@@ -1,24 +1,25 @@
 ﻿namespace ShortcutDroid
 {
     using System;
+    using System.ComponentModel;
     using System.Net;
     using System.Net.Sockets;
+    using System.Text;
 
     public partial class SocketServer
     {
         string setupstring;
-        string apps;
         public event ShortcutDroid.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
         public TcpClient client = null;
         public TcpListener server = null;
         public NetworkStream stream = null;
         public bool terminated=false;
-        public void init(string setup, string apps)
+        AppList appList;
+        public void init(AppList appList)
         {
             server = null;
-            setupstring = setup;
-            this.apps = apps;
-            
+            this.appList = appList;
+            setSetup(0);
 
             KeysStringWrapper wrapper = new KeysStringWrapper();
             try
@@ -80,7 +81,7 @@
                     client.Close();
                     Console.WriteLine("Client loop exited.");
                     server.Stop();
-                    if(!terminated) init(setupstring, apps);
+                    if(!terminated) init(appList);
                 }
             }
             catch (SocketException e)
@@ -99,14 +100,12 @@
 
         public void setupInit()
         {
+            sendApps();
             if(client!=null&&client.Connected)
             {
                 byte[] setupmsg = System.Text.Encoding.UTF8.GetBytes("setup<sprtr>" + setupstring + "\n");
-                byte[] appsmsg = System.Text.Encoding.UTF8.GetBytes("apps" + apps + "\n");
 
                 stream.Write(setupmsg, 0, setupmsg.Length);
-                stream.Write(appsmsg, 0, appsmsg.Length);
-                Console.WriteLine("Setup: {0}\n Apps: {1}", setupstring, apps);
             }
         }
 
@@ -114,16 +113,41 @@
         {
             if (client != null && client.Connected)
             {
-                byte[] setupmsg = System.Text.Encoding.UTF8.GetBytes("setup<sprtr>" + setupstring + "\n");
+                byte[] setupmsg = Encoding.UTF8.GetBytes("setup<sprtr>" + setupstring + "\n");
 
                 stream.Write(setupmsg, 0, setupmsg.Length);
                 Console.WriteLine("Setup: {0}", setupstring);
             }
         }
 
-        public void setSetup(string setup)
+        public void sendApps()
         {
-            setupstring = setup;
+            if (client != null && client.Connected)
+            {
+                StringBuilder appsSb = new StringBuilder();
+                foreach (var app in appList.Apps)
+                {
+                    appsSb.Append("<sprtr>" + app.Name);
+                }
+
+                byte[] appsmsg = System.Text.Encoding.UTF8.GetBytes("apps" + appsSb.ToString() + "\n");
+
+                stream.Write(appsmsg, 0, appsmsg.Length);
+            }
+        }
+
+        public void setSetup(int idx)
+        {
+            StringBuilder setupSb = new StringBuilder();
+            setupSb.Append(appList.Apps[idx].Name + "<sprtr>");
+            BindingList<Shortcut> list = appList.Apps[idx].ShortcutList;
+            for (int i = 0; i < list.Count; i++)
+            {
+                Shortcut s = list[i];
+                Console.WriteLine(s.Keystroke);
+                setupSb.Append(s.Label + "<sprtr>" + s.Keystroke + "<sprtr>");
+            }
+            setupstring = setupSb.ToString();
         }
 
         public void terminate()

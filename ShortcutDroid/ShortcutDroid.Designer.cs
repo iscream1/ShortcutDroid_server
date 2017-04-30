@@ -52,6 +52,7 @@
             this.AppCombo.Size = new System.Drawing.Size(358, 21);
             this.AppCombo.TabIndex = 1;
             this.AppCombo.SelectedIndexChanged += new System.EventHandler(this.AppCombo_SelectedIndexChanged);
+            this.AppCombo.DataSourceChanged += new System.EventHandler(this.AppCombo_DataSourceChanged);
             // 
             // EditButton
             // 
