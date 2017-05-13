@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="AppList.cs" />
     <Compile Include="KeysContainer.cs" />
-    <Compile Include="KeysStringWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QRform.cs">

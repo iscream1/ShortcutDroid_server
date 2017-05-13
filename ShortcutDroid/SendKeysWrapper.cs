@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ShortcutDroid
 {
     class SendKeysWrapper
     {
-        KeysStringWrapper ksw = new KeysStringWrapper();
-        public void Send(string input)
+       Random rand = new Random();
+       public void Send(string input)
         {
+            //syntax: "sometext(seq)\n(/seq)textinnewline", also good if no text before or after, or more sequences
             string[] inputArray = input.Split(new[] { "(/seq)" }, StringSplitOptions.None);
             foreach (string s in inputArray)
             {
@@ -23,104 +21,119 @@ namespace ShortcutDroid
                     {
                         case '{':
                             {
-                                SendSlow("{{}");
+                                //these must be sent together
+                                SendFast("{{}");
                             }
                             break;
                         case '}':
                             {
-                                SendSlow("{}}");
+                                SendFast("{}}");
                             }
                             break;
                         case '(':
                             {
-                                SendSlow("{(}");
+                                SendFast("{(}");
                             }
                             break;
                         case ')':
                             {
-                                SendSlow("{)}");
+                                SendFast("{)}");
                             }
                             break;
                         default:
+                            //simple characters can be simulated as typing
                             SendSlow(c.ToString());
                             break;
                     }
                 }
+                //if syntax is good, and there was a (seq) tag, the following sequence should be sent together
                 if (innerArray.Length > 1) SendFast(innerArray[1]);
             }
         }
 
+        //wait between each character, simulating a real person typing
         private void SendSlow(string s)
         {
             SendKeys.SendWait(s);
-            Thread.Sleep(100);
+            Thread.Sleep(rand.Next(25, 100));
         }
 
+        //key sequences must be sent together
         private void SendFast(string toSend)
         {
             StringBuilder output = new StringBuilder();
+
+            //split before each escaped character
             string[] array = toSend.Split(new[] { "\\" }, StringSplitOptions.None);
             foreach (string s in array)
             {
-                if(s.Length!=0)
+                //if it's an empty string, there's no need to check
+                //E.g. "\\n".Split(..."\\"...); will have an empty string as 0th member because
+                //the first occurrence is at the beginning of the string
+                if (s.Length != 0)
                     switch (s[0])
-                {
-                    case 's': //shift
-                        {
-                            output.Append("+");
-                        }
-                        break;
-                    case 'c': //ctrl
-                        {
-                            output.Append("^");
-                        }
-                        break;
-                    case 'a': //alt
-                        {
-                            output.Append("%");
-                        }
-                        break;
-                    case 't': //tab
-                        {
-                            output.Append("{TAB}");
-                        }
-                        break;
-                    case 'n': //enter
-                        {
-                            output.Append("~");
-                        }
-                        break;
-                    case 'l': //left
-                        {
-                            output.Append("{LEFT}");
-                        }
-                        break;
-                    case 'r': //right
-                        {
-                            output.Append("{RIGHT}");
-                        }
-                        break;
-                    case 'u': //up
-                        {
-                            output.Append("{UP}");
-                        }
-                        break;
-                    case 'd': //down
-                        {
-                            output.Append("{DOWN}");
-                        }
-                        break;
-                }
-                if(s.Length>1)
-                {
-                    string sub = s.Substring(1);
-                    if (sub[0] == 'f' && sub.Length > 1) output.Append(convertF(sub));
-                    else output.Append(sub);
-                }
+                    {
+                        case 's': //shift
+                            {
+                                //convert to SendKeys semantics and append if it has more chars
+                                output.Append("+"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'c': //ctrl
+                            {
+                                output.Append("^"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'a': //alt
+                            {
+                                output.Append("%"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 't': //tab
+                            {
+                                output.Append("{TAB}"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'n': //enter
+                            {
+                                output.Append("~"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'l': //left arrow
+                            {
+                                output.Append("{LEFT}"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'r': //right arrow
+                            {
+                                output.Append("{RIGHT}"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'u': //up arrow
+                            {
+                                output.Append("{UP}"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'd': //down arrow
+                            {
+                                output.Append("{DOWN}"); output.Append(s.Substring(1));
+                            }
+                            break;
+                        case 'f': //f chars
+                            {
+                                //no need to append the rest here, no seq should end with something after Fxx key
+                                output.Append(convertF(s));
+                            }
+                            break;
+                        default:
+                            output.Append(s);break;
+
+                    }
             }
             SendKeys.SendWait(output.ToString());
         }
 
+        //creates e.g. "{F5}" from getting "f5" and "f" from "f"
         private string convertF(string s)
         {
             switch (s)
@@ -137,7 +150,7 @@ namespace ShortcutDroid
                 case "f10": return "{F10}";
                 case "f11": return "{F11}";
                 case "f12": return "{F12}";
-                default:return null;
+                default:return s;
             }
         }
     }
