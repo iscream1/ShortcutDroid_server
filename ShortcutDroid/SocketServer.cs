@@ -8,20 +8,19 @@
 
     public partial class SocketServer
     {
-        string setupstring;
+        private string setupstring;
         public event ShortcutDroid.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
-        public TcpClient client = null;
-        public TcpListener server = null;
-        public NetworkStream stream = null;
-        public bool terminated=false;
-        AppList appList;
+        private TcpClient client = null;
+        private TcpListener server = null;
+        private NetworkStream stream = null;
+        private bool terminated=false;
+        private AppList appList;
         public void init(AppList appList)
         {
             server = null;
             this.appList = appList;
             setSetup(0);
 
-            //KeysStringWrapper wrapper = new KeysStringWrapper();
             SendKeysWrapper wrapper = new SendKeysWrapper();
             try
             {
@@ -56,35 +55,37 @@
                     {
                         data = System.Text.Encoding.UTF8.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
+
+                        //string got from client, syntax e.g.: "keystroke<sprtr>\c\s" as ctrl+s shortcut
                         string[] dataArray=data.Split(new[] { "<sprtr>" }, StringSplitOptions.None);
 
+                        //initial setup needed when connecting
                         if (dataArray[0]=="setup")
                         {
-                            //client.Close();
-                            //client= server.AcceptTcpClient();
-                            Console.WriteLine("sending setup");
                             setupInit();
                         }
+                        //the user selected another app on the client
                         else if (dataArray[0]=="selected")
                         {
                             if (SpinnerSelectedEvent != null)
-                                SpinnerSelectedEvent(dataArray[1]);
+                                SpinnerSelectedEvent(dataArray[1]); //send the app specific shortcuts
                         }
+                        //received a keystroke which should be processed and executed
                         else if (dataArray[0]=="keystroke")
                         {
-                            //SendKeys.SendWait(data);
                             wrapper.Send(dataArray[1]);
-                            //Console.WriteLine("Got: {0}", wrapper.Send(data));
-                            //Console.WriteLine("Pressed: {0}", data);
                         }
                         Console.WriteLine("Read loop exited.");
                     }
+                    //connection was closed here 
                     client.Close();
                     Console.WriteLine("Client loop exited.");
                     server.Stop();
-                    if(!terminated) init(appList);
+                    //if server is not terminated, continue listening for connections
+                    if (!terminated) init(appList);
                 }
             }
+            //exceptions mainly appearing when closing the application
             catch (SocketException e)
             {
                 Console.WriteLine("Socket Terminated:\n"+e);
@@ -99,6 +100,7 @@
             }
         }
 
+        //send initial setupstring
         public void setupInit()
         {
             sendApps();
@@ -110,6 +112,7 @@
             }
         }
 
+        //callback called when another application is selected in the ComboBox on server UI
         public void appIndexChanged()
         {
             if (client != null && client.Connected)
@@ -121,6 +124,7 @@
             }
         }
 
+        //send the applications list for the spinner to display on the client
         public void sendApps()
         {
             if (client != null && client.Connected)
@@ -137,6 +141,7 @@
             }
         }
 
+        //set up class member setupstring with syntax: "Save all"<sprtr>"\\c\\s"<sprtr>
         public void setSetup(int idx)
         {
             StringBuilder setupSb = new StringBuilder();
@@ -151,6 +156,7 @@
             setupstring = setupSb.ToString();
         }
 
+        //terminate server from outside
         public void terminate()
         {
             terminated = true;

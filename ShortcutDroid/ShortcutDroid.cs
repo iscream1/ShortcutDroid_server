@@ -17,16 +17,18 @@ namespace ShortcutDroid
 {
     public partial class ShortcutDroid : Form
     {
-        SocketServer server;
-        AppList result;
-        public delegate void SpinnerSelectedChangedEventHandler(string x);
-        public delegate void AppRemovedEventHandler();
+        private SocketServer server;
+        private AppList appList;
+        public delegate void SpinnerSelectedChangedEventHandler(string x); //client spinner handler
+        public delegate void AppRemovedEventHandler(); //shortcut editor remove handler
 
+        //tray contextmenu
         private ContextMenu contextMenu1;
-        //private MenuItem ExitMenuItem;
+        //tray notifyicon
         private NotifyIcon notifyIcon1;
 
-        Thread serverThread=null;
+        //server thread
+        private Thread serverThread=null;
 
         public ShortcutDroid()
         {
@@ -55,13 +57,14 @@ namespace ShortcutDroid
             notifyIcon1.ContextMenu = contextMenu1;
             notifyIcon1.Icon = Icon;
             notifyIcon1.MouseDoubleClick += notifyIcon1_MouseDoubleClick;
-            WindowState = FormWindowState.Minimized;
-            ShowInTaskbar = false;
+            WindowState = FormWindowState.Minimized; //start minimized...
+            ShowInTaskbar = false; //...to tray
 
+            //handling when user switches focus to another application in Windows
             Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
 
+            //listening to library calls
             TcpListener libserver = new TcpListener(IPAddress.Parse("127.0.0.1"), 9999);
-
             libserver.Start();
             libserver.BeginAcceptTcpClient(new AsyncCallback(openEditorCallback), libserver);
 
@@ -76,12 +79,13 @@ namespace ShortcutDroid
             AppList applist = new AppList();
             
             StringBuilder appsSb = new StringBuilder();
+            //deserialize appList from file
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(AppList));
                 using (StreamReader reader = new StreamReader("applist.xml", Encoding.GetEncoding("ISO-8859-9")))
                 {
-                    result = (AppList)serializer.Deserialize(reader);
+                    appList = (AppList)serializer.Deserialize(reader);
                 }
             }
             catch (Exception e)
@@ -89,12 +93,13 @@ namespace ShortcutDroid
                 Console.WriteLine(e.InnerException);
             }
 
-
-            AppCombo.DataSource = result.Apps;
-            serverThread = new Thread(() => server.init(result));
+            //display apps in combobox
+            AppCombo.DataSource = appList.Apps;
+            serverThread = new Thread(() => server.init(appList));
             serverThread.Start();
         }
 
+        //invoke changing comboboc index from code
         delegate void ComboHelperDelegate(App app);
         private void SetSelectedApp(App app)
         {
@@ -109,6 +114,7 @@ namespace ShortcutDroid
             }
         }
 
+        //app focus change in Windows
         private void OnFocusChangedHandler(object src, AutomationFocusChangedEventArgs args)
         {
             AutomationElement element = src as AutomationElement;
@@ -117,9 +123,11 @@ namespace ShortcutDroid
                 int processId = element.Current.ProcessId;
                 using (Process process = Process.GetProcessById(processId))
                 {
-                    Console.WriteLine(process.ProcessName);
-                    foreach (App app in result.Apps)
+                    //Console.WriteLine(process.ProcessName);
+                    foreach (App app in appList.Apps)
                     {
+                        //if there is a match with the current window process name and any of the
+                        //defined apps, select the app in combobox
                         if (app.ProcessName == process.ProcessName)
                             SetSelectedApp(app);
                     }
@@ -127,49 +135,59 @@ namespace ShortcutDroid
             }
         }
 
+        //set foreground window by process name
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
+        //x is spinner selected index on client
         private void onSpinnerChanged(string x)
         {
-            if(result.Apps.Count!=0)
+            if(appList.Apps.Count!=0)
             {
                 int idx = 0;
                 Int32.TryParse(x, out idx);
-                SetSelectedApp(result.Apps[idx]);
-                Process[] processes = Process.GetProcessesByName(result.Apps[idx].ProcessName);
+                SetSelectedApp(appList.Apps[idx]); //set the selected app in the appcombobox
+                //get all processes with the same process name of the selected app
+                Process[] processes = Process.GetProcessesByName(appList.Apps[idx].ProcessName);
                 if (processes.Length != 0)
                 {
                     int i = 0;
+                    //go through the processes searching for a windows handle to set foreground
+                    //(doesn't work with AdobeRdr for some reason)
                     while (i < processes.Length && !SetForegroundWindow(processes[i++].MainWindowHandle)) ;
                 }
             }
         }
 
+        //if an app is removed from editor, resend apps list for client
         private void onAppRemoved()
         {
             server.sendApps();
         }
 
+        //open form displaying a QR containing the public IP address
         private void qrButton_Click(object sender, EventArgs e)
         {
             new QRform().Show();
         }
 
+        //if app is selected in server UI, send the app-specigic shortcuts for client
         private void AppCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (result.Apps.Count != 0)
+            if (appList.Apps.Count != 0)
             {
                 if(serverThread!=null) server.setSetup(AppCombo.SelectedIndex);
                 server.appIndexChanged();
             }
         }
 
+        //make server UI visible by double clicking on tray icon
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
         }
 
+        //UI resize
         private void ShortcutDroid_Resize(object sender, EventArgs e)
         {
             notifyIcon1.BalloonTipTitle = "ShortcutDroid";
@@ -187,6 +205,7 @@ namespace ShortcutDroid
             }
         }
 
+        //exit selected from tray menu
         private void ExitMenuItem_Click(object Sender, EventArgs e)
         {
             if (serverThread != null)
@@ -198,6 +217,7 @@ namespace ShortcutDroid
             Close();
         }
 
+        //make server UI visible
         private void ShowMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -206,21 +226,24 @@ namespace ShortcutDroid
             notifyIcon1.Visible = false;
         }
 
+        //restart server from menu
         private void RestartMenuItem_Click(object sender, EventArgs e)
         {
             restart();
         }
 
+        //open shortcut editor button click handler
         private void EditButton_Click(object sender, EventArgs e)
         {
             openEditor();
         }
 
+        //open editor
         private void openEditor()
         {
-            if (result != null)
+            if (appList != null)
             {
-                ShortcutEditor she = new ShortcutEditor(result);
+                ShortcutEditor she = new ShortcutEditor(appList);
                 she.AppRemovedEvent += new AppRemovedEventHandler(onAppRemoved);
                 she.Show();
             }
@@ -230,11 +253,13 @@ namespace ShortcutDroid
             }
         }
 
+        //lib callback
         private void openEditorCallback(IAsyncResult result)
         {
             openEditor();
         }
 
+        //X button click
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
@@ -270,17 +295,19 @@ namespace ShortcutDroid
             }
         }
 
+        //if appcombo datasource changes, resend apps list for client
         private void AppCombo_DataSourceChanged(object sender, EventArgs e)
         {
-            Console.WriteLine("DataSourceChanged");
             server.sendApps();
         }
 
+        //restart server button click handler
         private void RestartButton_Click(object sender, EventArgs e)
         {
             restart();
         }
 
+        //retsrat server
         private void restart()
         {
             switch (MessageBox.Show(this, "Are you sure you want to restart server?", "Restart server", MessageBoxButtons.YesNo))
