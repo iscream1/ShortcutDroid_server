@@ -21,7 +21,8 @@
             this.appList = appList;
             setSetup(0);
 
-            KeysStringWrapper wrapper = new KeysStringWrapper();
+            //KeysStringWrapper wrapper = new KeysStringWrapper();
+            SendKeysWrapper wrapper = new SendKeysWrapper();
             try
             {
                 Int32 port = 115;

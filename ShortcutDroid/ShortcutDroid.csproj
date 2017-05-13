@@ -79,6 +79,7 @@
     <Compile Include="QRform.Designer.cs">
       <DependentUpon>QRform.cs</DependentUpon>
     </Compile>
+    <Compile Include="SendKeysWrapper.cs" />
     <Compile Include="ShortcutDroid.cs">
       <SubType>Form</SubType>
     </Compile>

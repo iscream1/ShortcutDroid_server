@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Net;
 
 namespace ShortcutDroid
 {
@@ -58,6 +59,11 @@ namespace ShortcutDroid
             ShowInTaskbar = false;
 
             Automation.AddAutomationFocusChangedEventHandler(OnFocusChangedHandler);
+
+            TcpListener libserver = new TcpListener(IPAddress.Parse("127.0.0.1"), 9999);
+
+            libserver.Start();
+            libserver.BeginAcceptTcpClient(new AsyncCallback(openEditorCallback), libserver);
 
             init();
         }
@@ -207,7 +213,12 @@ namespace ShortcutDroid
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            if(result!=null)
+            openEditor();
+        }
+
+        private void openEditor()
+        {
+            if (result != null)
             {
                 ShortcutEditor she = new ShortcutEditor(result);
                 she.AppRemovedEvent += new AppRemovedEventHandler(onAppRemoved);
@@ -215,8 +226,13 @@ namespace ShortcutDroid
             }
             else
             {
-                MessageBox.Show("Cannot openn editor, application list is empty.");
+                MessageBox.Show("Cannot open editor, application list is empty.");
             }
+        }
+
+        private void openEditorCallback(IAsyncResult result)
+        {
+            openEditor();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -240,7 +256,6 @@ namespace ShortcutDroid
                     {
                         e.Cancel = true;
                     }
-                    
                     break;
                 default:
                     {
