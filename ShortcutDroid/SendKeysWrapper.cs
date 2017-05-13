@@ -19,6 +19,7 @@ namespace ShortcutDroid
                 {
                     switch (c)
                     {
+                        //cases for single characters that need special wrapping in SendKeys
                         case '{':
                             {
                                 //these must be sent together
