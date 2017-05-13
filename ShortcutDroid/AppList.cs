@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ShortcutDroid
@@ -47,11 +42,7 @@ namespace ShortcutDroid
 
         public void AddShortcut(string label, string keystroke)
         {
-            ShortcutList.Add(new Shortcut(label, keystroke, false));
-        }
-        public void AddShortcut(string label, string keystroke, bool randomspeed)
-        {
-            ShortcutList.Add(new Shortcut(label, keystroke, randomspeed));
+            ShortcutList.Add(new Shortcut(label, keystroke));
         }
         private string name;
         [XmlElement("Name")]
@@ -78,18 +69,15 @@ namespace ShortcutDroid
     public class Shortcut
     {
         public Shortcut() {}
-        public Shortcut(string label, string keystroke, bool randomspeed)
+        public Shortcut(string label, string keystroke)
         {
             Keystroke = keystroke;
             Label = label;
-            RandomSpeed = randomspeed;
         }
         [XmlElement("Keystroke")]
         public string Keystroke { get; set; }
         [XmlElement("Label")]
         public string Label { get;set; }
-        [XmlElement("RandomSpeed")]
-        public bool RandomSpeed = false;
         public override string ToString()
         {
             return Label;

@@ -4,27 +4,22 @@
     <Name>Alkalmazás1</Name>
     <ProcessName></ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\a\t(/seq)</Keystroke>
       <Label>AltTab</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cs(/seq)</Keystroke>
       <Label>CtrlS</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\ss(/seq)</Keystroke>
       <Label>ShiftS</Label>
     </Shortcut>
    <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\f5(/seq)</Keystroke>
       <Label>F5</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\f8(/seq)</Keystroke>
       <Label>CtrlF8</Label>
     </Shortcut>
@@ -33,12 +28,10 @@
     <Name>App2</Name>
     <ProcessName></ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\a\t(/seq)</Keystroke>
       <Label>AltTab</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cs(/seq)</Keystroke>
       <Label>CtrlS</Label>
     </Shortcut>
@@ -47,17 +40,14 @@
     <Name>Szöveg teszt</Name>
     <ProcessName></ProcessName>
     <Shortcut>
-      <RandomSpeed>true</RandomSpeed>
       <Keystroke>Az alma(seq)\n(/seq) nagyon finom.õúûáéöüóí</Keystroke>
       <Label>AlmaSzöveg</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>true</RandomSpeed>
       <Keystroke>Az alma(seq)\n(/seq) {(seq)\n(/seq) nagyon(seq)\n(/seq)} finom.</Keystroke>
       <Label>ValamiSzoveg</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>true</RandomSpeed>
       <Keystroke>int main(char[] argv, int argc)(seq)\n(/seq){(seq)\n(/seq)(seq)\t(/seq)return 0;(seq)\n(/seq)}</Keystroke>
       <Label>Mainfv</Label>
     </Shortcut>
@@ -66,32 +56,26 @@
     <Name>Android Studio</Name>
     <ProcessName>studio64</ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cs(/seq)</Keystroke>
       <Label>Save All</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\f4(/seq)</Keystroke>
       <Label>Jump To Source</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cz(/seq)</Keystroke>
       <Label>Undo</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\sz(/seq)</Keystroke>
       <Label>Redo</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\f9(/seq)</Keystroke>
       <Label>Build</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\s\f10(/seq)</Keystroke>
       <Label>Build And Run</Label>
     </Shortcut>
@@ -100,27 +84,22 @@
     <Name>Visual Studio</Name>
     <ProcessName>devenv</ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\ss(/seq)</Keystroke>
       <Label>Save All</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cz(/seq)</Keystroke>
       <Label>Undo</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\sz(/seq)</Keystroke>
       <Label>Redo</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\f5(/seq)</Keystroke>
       <Label>Start</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\f5(/seq)</Keystroke>
       <Label>Start without debug</Label>
     </Shortcut>
@@ -129,27 +108,22 @@
     <Name>Notepad</Name>
     <ProcessName>notepad</ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cs(/seq)</Keystroke>
       <Label>Save All</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cz(/seq)</Keystroke>
       <Label>Undo</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\sz(/seq)</Keystroke>
       <Label>Redo</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cf(seq)</Keystroke>
       <Label>Search</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\f3(/seq)</Keystroke>
       <Label>Search next</Label>
     </Shortcut>
@@ -158,32 +132,26 @@
     <Name>Chrome</Name>
     <ProcessName>chrome</ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\ct(/seq)</Keystroke>
       <Label>New tab</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\t(/seq)</Keystroke>
       <Label>Next tab</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cw(/seq)</Keystroke>
       <Label>Close tab</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\st(/seq)</Keystroke>
       <Label>Open closed tab</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\cf(/seq)</Keystroke>
       <Label>Search</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\f5(/seq)</Keystroke>
       <Label>Refresh</Label>
     </Shortcut>
@@ -192,42 +160,34 @@
     <Name>VLC Media Player</Name>
     <ProcessName>vlc</ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq) (/seq)</Keystroke>
       <Label>Play/Pause</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)f(/seq)</Keystroke>
       <Label>Full screen</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\u(/seq)</Keystroke>
       <Label>Volume+</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\d(/seq)</Keystroke>
       <Label>Volume-</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\s\l(/seq)</Keystroke>
       <Label>3sec-</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\s\r(/seq)</Keystroke>
       <Label>3sec+</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\r(/seq)</Keystroke>
       <Label>1min+</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\c\l(/seq)</Keystroke>
       <Label>1min-</Label>
     </Shortcut>
@@ -236,12 +196,10 @@
     <Name>Adobe reader</Name>
     <ProcessName>AcroRd32</ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\l(/seq)</Keystroke>
       <Label>Previous slide</Label>
     </Shortcut>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\r(/seq)</Keystroke>
       <Label>Next slide</Label>
     </Shortcut>
@@ -250,7 +208,6 @@
     <Name>Open Broadcast Studio</Name>
     <ProcessName>obs64</ProcessName>
     <Shortcut>
-      <RandomSpeed>false</RandomSpeed>
       <Keystroke>(seq)\a\f10(/seq)</Keystroke>
       <Label>Start/Stop recording</Label>
     </Shortcut>

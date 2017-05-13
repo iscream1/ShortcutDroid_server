@@ -99,7 +99,7 @@ namespace ShortcutDroid
             if(appList.Apps.Count!=0)
             {
                 int appIdx = (AppCombo.SelectedIndex == -1) ? 0 : AppCombo.SelectedIndex;
-                appList.Apps[appIdx].ShortcutList.Add(new Shortcut("My new CtrlS ExampleShortcut", "\\cs", false));
+                appList.Apps[appIdx].ShortcutList.Add(new Shortcut("My new CtrlS ExampleShortcut", "\\cs"));
                 ShortcutEditBox.Text = appList.Apps[appIdx].ShortcutList[appList.Apps[appIdx].ShortcutList.Count - 1].Label;
                 KeystrokeBox.Text = appList.Apps[appIdx].ShortcutList[appList.Apps[appIdx].ShortcutList.Count - 1].Keystroke;
                 ShortcutCombo.SelectedIndex = ShortcutCombo.Items.Count - 1;
