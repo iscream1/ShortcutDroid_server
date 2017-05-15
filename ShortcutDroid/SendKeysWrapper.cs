@@ -74,85 +74,39 @@ namespace ShortcutDroid
                 if (s.Length != 0)
                     switch (s[0])
                     {
+                        //convert to SendKeys semantics and append if it has more chars
                         case 's': //shift
-                            {
-                                //convert to SendKeys semantics and append if it has more chars
-                                output.Append("+"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("+"); output.Append(s.Substring(1)); break;
                         case 'c': //ctrl
-                            {
-                                output.Append("^"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("^"); output.Append(s.Substring(1)); break;
                         case 'a': //alt
-                            {
-                                output.Append("%"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("%"); output.Append(s.Substring(1)); break;
                         case 't': //tab
-                            {
-                                output.Append("{TAB}"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("{TAB}"); output.Append(s.Substring(1)); break;
                         case 'n': //enter
-                            {
-                                output.Append("~"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("~"); output.Append(s.Substring(1)); break;
                         case 'l': //left arrow
-                            {
-                                output.Append("{LEFT}"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("{LEFT}"); output.Append(s.Substring(1)); break;
                         case 'r': //right arrow
-                            {
-                                output.Append("{RIGHT}"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("{RIGHT}"); output.Append(s.Substring(1)); break;
                         case 'u': //up arrow
-                            {
-                                output.Append("{UP}"); output.Append(s.Substring(1));
-                            }
-                            break;
+                            output.Append("{UP}"); output.Append(s.Substring(1)); break;
                         case 'd': //down arrow
-                            {
-                                output.Append("{DOWN}"); output.Append(s.Substring(1));
-                            }
-                            break;
-                        case 'f': //f chars
-                            {
-                                //no need to append the rest here, no seq should end with something after Fxx key
-                                output.Append(convertF(s));
-                            }
-                            break;
+                            output.Append("{DOWN}"); output.Append(s.Substring(1)); break;
+                        case 'f': //f chars, no need to append the rest here, no seq should end with something after Fxx key
+                            output.Append(convertF(s)); break;
                         default:
-                            output.Append(s);break;
+                            output.Append(s); break;
 
                     }
             }
             SendKeys.SendWait(output.ToString());
         }
 
-        //creates e.g. "{F5}" from getting "f5" and "f" from "f"
+        //creates e.g. "{F5}" from getting "f5"
         private string convertF(string s)
         {
-            switch (s)
-            {
-                case "f1": return "{F1}";
-                case "f2": return "{F2}";
-                case "f3": return "{F3}";
-                case "f4": return "{F4}";
-                case "f5": return "{F5}";
-                case "f6": return "{F6}";
-                case "f7": return "{F7}";
-                case "f8": return "{F8}";
-                case "f9": return "{F9}";
-                case "f10": return "{F10}";
-                case "f11": return "{F11}";
-                case "f12": return "{F12}";
-                default:return s;
-            }
+            return "{F" + s.Substring(1) + "}";
         }
     }
 }
