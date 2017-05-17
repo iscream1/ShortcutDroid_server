@@ -11,6 +11,11 @@ namespace ShortcutDroid
        public void Send(string input)
         {
             //syntax: "sometext(seq)\n(/seq)textinnewline", also good if no text before or after, or more sequences
+            //Keystroke sequences in (seq)(/seq) block,
+            //\a -alt, \s -shift, \c -ctrl, \t -tab, \n -enter, \l \r \u \d -arrow keys, \f1 -F1 (works with 1-12)
+            //e.g. (seq)\sa(/seq) results in an capitalised "A" character, while (seq)\t(/seq)a results in a tabulator before a delayed "a" character
+            //you can also use native SendKeys syntax in seq blocks
+
             string[] inputArray = input.Split(new[] { "(/seq)" }, StringSplitOptions.None);
             foreach (string s in inputArray)
             {

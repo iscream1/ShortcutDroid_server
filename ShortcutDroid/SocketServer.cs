@@ -6,7 +6,7 @@
     using System.Net.Sockets;
     using System.Text;
 
-    public partial class SocketServer
+    public partial class SocketServer : IDisposable
     {
         private string setupstring;
         public event ShortcutDroid.SpinnerSelectedChangedEventHandler SpinnerSelectedEvent;
@@ -162,6 +162,11 @@
             terminated = true;
             if (server != null) server.Stop();
             if (stream != null) stream.Close();
+        }
+
+        public void Dispose()
+        {
+            terminate();
         }
     }
 }

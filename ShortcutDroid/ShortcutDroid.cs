@@ -66,7 +66,7 @@ namespace ShortcutDroid
             //listening to library calls
             TcpListener libserver = new TcpListener(IPAddress.Parse("127.0.0.1"), 9999);
             libserver.Start();
-            libserver.BeginAcceptTcpClient(new AsyncCallback(openEditorCallback), libserver);
+            libserver.BeginAcceptTcpClient(new AsyncCallback(onLibClientConnectedCallback), libserver);
 
             init();
         }
@@ -99,7 +99,7 @@ namespace ShortcutDroid
             serverThread.Start();
         }
 
-        //invoke changing comboboc index from code
+        //invoke changing combobox index from code
         delegate void ComboHelperDelegate(App app);
         private void SetSelectedApp(App app)
         {
@@ -254,9 +254,55 @@ namespace ShortcutDroid
         }
 
         //lib callback
-        private void openEditorCallback(IAsyncResult result)
+        private void onLibClientConnectedCallback(IAsyncResult result)
         {
-            openEditor();
+            TcpListener listener = (TcpListener)result.AsyncState;
+            TcpClient client = listener.EndAcceptTcpClient(result);
+            NetworkStream stream=client.GetStream();
+            Byte[] bytes = new Byte[256];
+            stream.BeginRead(bytes, 0, bytes.Length, new AsyncCallback(onLibStreamReadCallback), bytes);
+        }
+
+        //if lib sends a new app, add the app to the list and update the UI
+        private void onLibStreamReadCallback(IAsyncResult result)
+        {
+            Byte[] bytes = (Byte[])result.AsyncState;
+            string data=System.Text.Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            string[] inputArray = data.Split(new[] { "<sprtr>" }, StringSplitOptions.None);
+
+            App app = new App()
+            {
+                Name = inputArray[1],
+                ProcessName=inputArray[2]
+            };
+
+            for(int i=3;i<inputArray.Length-1;i+=2)
+            {
+                Shortcut s = new Shortcut()
+                {
+                    Label = inputArray[i],
+                    Keystroke=inputArray[i+1]
+                };
+                app.ShortcutList.Add(s);
+            }
+
+            AppCombo.DataSource = null;
+            appList.Apps.Add(app);
+            UpdateAppCombo();
+        }
+
+        delegate void ComboListUpdateDelegate();
+        private void UpdateAppCombo()
+        {
+            if (this.AppCombo.InvokeRequired)
+            {
+                ComboListUpdateDelegate d = new ComboListUpdateDelegate(UpdateAppCombo);
+                this.Invoke(d);
+            }
+            else
+            {
+                AppCombo.DataSource = appList.Apps;
+            }
         }
 
         //X button click

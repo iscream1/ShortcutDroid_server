@@ -50,7 +50,6 @@ namespace ShortcutDroid
                 KeystrokeBox.Text = "";
                 KeystrokeBox.Text = appList.Apps[appIdx].ShortcutList[shIdx].Keystroke;
             }
-            
         }
 
         private void AddAppButton_Click(object sender, EventArgs e)
