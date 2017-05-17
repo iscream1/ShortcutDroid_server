@@ -94,7 +94,7 @@ namespace ShortcutDroid
             }
 
             //display apps in combobox
-            AppCombo.DataSource = appList.Apps;
+            if(appList!=null) AppCombo.DataSource = appList.Apps;
             serverThread = new Thread(() => server.init(appList));
             serverThread.Start();
         }
@@ -123,7 +123,7 @@ namespace ShortcutDroid
                 int processId = element.Current.ProcessId;
                 using (Process process = Process.GetProcessById(processId))
                 {
-                    //Console.WriteLine(process.ProcessName);
+                    if(appList!=null)
                     foreach (App app in appList.Apps)
                     {
                         //if there is a match with the current window process name and any of the
@@ -287,6 +287,11 @@ namespace ShortcutDroid
             }
 
             AppCombo.DataSource = null;
+            if (appList == null)
+            {
+                appList = new AppList();
+                server.appList = appList;
+            }
             appList.Apps.Add(app);
             UpdateAppCombo();
         }

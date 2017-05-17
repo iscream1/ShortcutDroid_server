@@ -14,7 +14,7 @@
         private TcpListener server = null;
         private NetworkStream stream = null;
         private bool terminated=false;
-        private AppList appList;
+        public AppList appList;
         public void init(AppList appList)
         {
             server = null;
@@ -145,15 +145,18 @@
         public void setSetup(int idx)
         {
             StringBuilder setupSb = new StringBuilder();
-            setupSb.Append(appList.Apps[idx].Name + "<sprtr>");
-            BindingList<Shortcut> list = appList.Apps[idx].ShortcutList;
-            for (int i = 0; i < list.Count; i++)
+            if (appList != null)
             {
-                Shortcut s = list[i];
-                Console.WriteLine(s.Keystroke);
-                setupSb.Append(s.Label + "<sprtr>" + s.Keystroke + "<sprtr>");
+                setupSb.Append(appList.Apps[idx].Name + "<sprtr>");
+                BindingList<Shortcut> list = appList.Apps[idx].ShortcutList;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Shortcut s = list[i];
+                    Console.WriteLine(s.Keystroke);
+                    setupSb.Append(s.Label + "<sprtr>" + s.Keystroke + "<sprtr>");
+                }
+                setupstring = setupSb.ToString();
             }
-            setupstring = setupSb.ToString();
         }
 
         //terminate server from outside
