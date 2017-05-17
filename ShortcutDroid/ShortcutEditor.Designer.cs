@@ -46,6 +46,7 @@
             this.RemoveShortcutButton = new System.Windows.Forms.Button();
             this.AddShortcutButton = new System.Windows.Forms.Button();
             this.SaveFileButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AppCombo
@@ -213,11 +214,21 @@
             this.SaveFileButton.UseVisualStyleBackColor = true;
             this.SaveFileButton.Click += new System.EventHandler(this.SaveFileButton_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(334, 141);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(222, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Make sure to select everything before editing!";
+            // 
             // ShortcutEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(852, 493);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.SaveFileButton);
             this.Controls.Add(this.RemoveShortcutButton);
             this.Controls.Add(this.AddShortcutButton);
@@ -263,5 +274,6 @@
         private System.Windows.Forms.Button RemoveShortcutButton;
         private System.Windows.Forms.Button AddShortcutButton;
         private System.Windows.Forms.Button SaveFileButton;
+        private System.Windows.Forms.Label label2;
     }
 }

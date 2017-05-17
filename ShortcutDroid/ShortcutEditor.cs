@@ -98,7 +98,7 @@ namespace ShortcutDroid
             if(appList.Apps.Count!=0)
             {
                 int appIdx = (AppCombo.SelectedIndex == -1) ? 0 : AppCombo.SelectedIndex;
-                appList.Apps[appIdx].ShortcutList.Add(new Shortcut("My new CtrlS ExampleShortcut", "\\cs"));
+                appList.Apps[appIdx].ShortcutList.Add(new Shortcut("My new CtrlS ExampleShortcut", "(seq)\\cs(/seq)"));
                 ShortcutEditBox.Text = appList.Apps[appIdx].ShortcutList[appList.Apps[appIdx].ShortcutList.Count - 1].Label;
                 KeystrokeBox.Text = appList.Apps[appIdx].ShortcutList[appList.Apps[appIdx].ShortcutList.Count - 1].Keystroke;
                 ShortcutCombo.SelectedIndex = ShortcutCombo.Items.Count - 1;
@@ -127,7 +127,7 @@ namespace ShortcutDroid
                         try
                         {
                             XmlSerializer serializer = new XmlSerializer(typeof(AppList));
-                            using (TextWriter writer = new StreamWriter("applist.xml", true, Encoding.UTF8)) 
+                            using (TextWriter writer = new StreamWriter("applist.xml", false, Encoding.UTF8)) 
                             {
                                 serializer.Serialize(writer, appList);
                             }

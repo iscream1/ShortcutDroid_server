@@ -241,16 +241,14 @@ namespace ShortcutDroid
         //open editor
         private void openEditor()
         {
-            if (appList != null)
+            if(appList==null)
             {
-                ShortcutEditor she = new ShortcutEditor(appList);
-                she.AppRemovedEvent += new AppRemovedEventHandler(onAppRemoved);
-                she.Show();
+                MessageBox.Show("Application list is empty, creating one to edit.");
+                appList = new AppList();
             }
-            else
-            {
-                MessageBox.Show("Cannot open editor, application list is empty.");
-            }
+            ShortcutEditor she = new ShortcutEditor(appList);
+            she.AppRemovedEvent += new AppRemovedEventHandler(onAppRemoved);
+            she.Show();
         }
 
         //lib callback
